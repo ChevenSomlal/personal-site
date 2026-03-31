@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheven Somlal | Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+        <div class="gradient-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-text">CS</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="greeting">Hello, I'm</p>
+                <h1 class="name">
+                    <span class="name-line">Cheven</span>
+                    <span class="name-line">Somlal</span>
+                </h1>
+                <div class="title-wrapper">
+                    <span class="title-item">Software Engineer</span>
+                    <span class="title-separator">•</span>
+                    <span class="title-item">Full Stack Developer</span>
+                    <span class="title-separator">•</span>
+                    <span class="title-item">Anime Enthusiast</span>
+                </div>
+                <p class="hero-description">
+                    Building elegant solutions at the intersection of engineering and creativity. 
+                    Currently crafting experiences at Capitec Bank.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="https://www.linkedin.com/in/chevensomlal/" class="btn btn-secondary" target="_blank" rel="noopener">
+                        View LinkedIn
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="avatar-container">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar-ring-2"></div>
+                    <div class="avatar-placeholder">
+                        <span class="avatar-icon">⚡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">
+                        I'm a passionate Software Engineer with over 5 years of experience crafting 
+                        scalable solutions and transforming complex problems into elegant code.
+                    </p>
+                    <p>
+                        Currently working as a <strong>Software Engineer III at Capitec Bank</strong>, 
+                        I specialize in full-stack development with expertise in JavaScript, Spring Framework, 
+                        and Apache Kafka. My journey has taken me through exciting projects at companies like 
+                        Entelect, TransUnion, and De Beers.
+                    </p>
+                    <p>
+                        When I'm not coding, you'll find me diving into anime series, exploring new technologies, 
+                        or contributing to open-source projects. I believe in writing clean, maintainable code 
+                        that stands the test of time.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Companies</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Anime Watched</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="code-window">
+                        <div class="window-header">
+                            <span class="window-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </span>
+                            <span class="window-title">developer.java</span>
+                        </div>
+                        <div class="window-content">
+                            <pre><code><span class="keyword">public class</span> <span class="class-name">Cheven</span> {
+    <span class="keyword">private</span> String role = <span class="string">"Software Engineer"</span>;
+    <span class="keyword">private</span> String location = <span class="string">"Cape Town"</span>;
+    <span class="keyword">private</span> List&lt;String&gt; passions = Arrays.asList(
+        <span class="string">"Coding"</span>,
+        <span class="string">"Anime"</span>,
+        <span class="string">"Problem Solving"</span>
+    );
+
+    <span class="keyword">public void</span> createMagic() {
+        <span class="comment">// Building the future, one line at a time</span>
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Software Engineer III: Full Stack</h3>
+                            <span class="timeline-company">Capitec Bank</span>
+                        </div>
+                        <span class="timeline-date">January 2025 - Present</span>
+                        <span class="timeline-location">Cape Town, Western Cape</span>
+                        <p class="timeline-description">
+                            Leading full-stack development initiatives, building scalable solutions 
+                            for banking systems.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Senior Software Engineer</h3>
+                            <span class="timeline-company">Entelect</span>
+                        </div>
+                        <span class="timeline-date">January 2020 - January 2025</span>
+                        <span class="timeline-location">Johannesburg Area</span>
+                        <p class="timeline-description">
+                            5+ years across multiple client projects including Capitec, Assupol, 
+                            TransUnion, and De Beers.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Software Engineer (Assupol)</h3>
+                            <span class="timeline-company">Entelect</span>
+                        </div>
+                        <span class="timeline-date">June 2023 - December 2023</span>
+                        <p class="timeline-description">
+                            Migration of critical functionalities from .NET Framework monolithic 
+                            architecture to standalone .NET 6 application with front-end enhancements.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Software Engineer (TransUnion)</h3>
+                            <span class="timeline-company">Entelect</span>
+                        </div>
+                        <span class="timeline-date">February 2022 - June 2023</span>
+                        <p class="timeline-description">
+                            Rewrote legacy Delphi system using modern technologies, migrating from 
+                            on-premises to cloud with business process enhancements.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Software Engineer (De Beers)</h3>
+                            <span class="timeline-company">Entelect</span>
+                        </div>
+                        <span class="timeline-date">January 2020 - February 2022</span>
+                        <p class="timeline-description">
+                            Developed customer-facing site and internal sales planning system for 
+                            diamond industry, including order management and reporting.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Software Development Intern</h3>
+                            <span class="timeline-company">Allan Gray</span>
+                        </div>
+                        <span class="timeline-date">June 2019 - July 2019</span>
+                        <span class="timeline-location">Cape Town Area</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">🎯</div>
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">⚡</div>
+                    <h3>Frameworks</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring Framework</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">.NET 6</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">🔄</div>
+                    <h3>Middleware</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Apache Kafka</span>
+                        <span class="skill-tag">RabbitMQ</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Elasticsearch</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">☁️</div>
+                    <h3>Cloud & DevOps</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">🗄️</div>
+                    <h3>Databases</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Oracle</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon">🌍</div>
+                    <h3>Languages Spoken</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">English (Native)</span>
+                        <span class="skill-tag">Afrikaans (Professional)</span>
+                        <span class="skill-tag">isiZulu (Limited)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🌤️</div>
+                    <h3>Weather Forecast App</h3>
+                    <p>Real-time weather application with today and tomorrow forecasts. Built with modern CSS and Open-Meteo API.</p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                    <a href="https://chevensomlal.github.io/weather-forecast/" class="project-link" target="_blank" rel="noopener">View Project →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">💎</div>
+                    <h3>Diamond Trading Platform</h3>
+                    <p>Customer-facing portal and internal sales planning system for diamond industry with order management and reporting.</p>
+                    <div class="project-tech">
+                        <span>Java</span>
+                        <span>Spring</span>
+                        <span>React</span>
+                    </div>
+                    <span class="project-link">Enterprise Project</span>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🔄</div>
+                    <h3>.NET Migration Project</h3>
+                    <p>Migration of monolithic .NET Framework application to .NET 6 with modern UI enhancements.</p>
+                    <div class="project-tech">
+                        <span>.NET 6</span>
+                        <span>C#</span>
+                        <span>Azure</span>
+                    </div>
+                    <span class="project-link">Enterprise Project</span>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">☁️</div>
+                    <h3>Cloud Migration System</h3>
+                    <p>Rewrite of legacy Delphi system with cloud migration and business process improvements.</p>
+                    <div class="project-tech">
+                        <span>Java</span>
+                        <span>AWS</span>
+                        <span>Kafka</span>
+                    </div>
+                    <span class="project-link">Enterprise Project</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p class="contact-intro">
+                    I'm always open to discussing new opportunities, interesting projects, 
+                    or just chatting about anime and technology!
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:chevensomlal@gmail.com" class="contact-card">
+                        <span class="contact-icon">📧</span>
+                        <span class="contact-label">Email</span>
+                        <span class="contact-value">chevensomlal@gmail.com</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/chevensomlal/" class="contact-card" target="_blank" rel="noopener">
+                        <span class="contact-icon">💼</span>
+                        <span class="contact-label">LinkedIn</span>
+                        <span class="contact-value">View Profile</span>
+                    </a>
+                    <a href="https://github.com/ChevenSomlal" class="contact-card" target="_blank" rel="noopener">
+                        <span class="contact-icon">🐙</span>
+                        <span class="contact-label">GitHub</span>
+                        <span class="contact-value">ChevenSomlal</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Cheven Somlal. Crafted with ☕ and 🎌</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
