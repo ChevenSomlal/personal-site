@@ -1,5 +1,5 @@
 /* ============================================
-   DBZ Interactive Story Game Styles
+   DBZ Fighting Game Styles
    ============================================ */
 :root {
     /* DBZ Color Palette */
@@ -454,6 +454,54 @@ body {
     font-weight: 700;
 }
 
+/* Controls Guide */
+.controls-guide {
+    background: var(--glass-bg);
+    border: 2px solid var(--color-goku-orange);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    margin: 0 auto var(--spacing-lg);
+    max-width: 700px;
+}
+
+.controls-guide h3 {
+    font-size: 1.3rem;
+    color: var(--color-saiyan-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.control-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.control-key {
+    background: var(--color-bg-galaxy);
+    border: 2px solid var(--color-goku-orange);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-saiyan-gold);
+}
+
+.control-desc {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+}
+
 .btn-start {
     background: var(--gradient-goku);
     color: white;
@@ -609,54 +657,51 @@ body {
 }
 
 /* ============================================
-   Battle Arena
+   Fighting Arena
    ============================================ */
-.battle-arena {
+.fighting-arena {
     display: none;
     background: var(--color-bg-galaxy);
     border-radius: var(--radius-xl);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     border: 3px solid var(--color-goku-orange);
     margin-top: var(--spacing-md);
 }
 
-.battle-scene {
+.fighting-hud {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-md);
-    padding: var(--spacing-md);
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-sm);
     background: var(--color-bg-space);
     border-radius: var(--radius-lg);
 }
 
-.fighter {
-    text-align: center;
+.player-hud,
+.enemy-hud {
     flex: 1;
-}
-
-.fighter-avatar {
-    font-size: 4rem;
-    margin-bottom: var(--spacing-xs);
-    filter: drop-shadow(0 0 20px var(--color-saiyan-gold));
+    max-width: 300px;
 }
 
 .fighter-name {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--color-text-primary);
     text-transform: uppercase;
     margin-bottom: var(--spacing-xs);
 }
 
-.fighter-health {
-    width: 150px;
-    margin: 0 auto;
+.health-bar-container,
+.ki-bar-container {
+    width: 100%;
+    margin-bottom: var(--spacing-xs);
 }
 
-.health-bar {
+.health-bar,
+.ki-bar {
     width: 100%;
-    height: 15px;
+    height: 20px;
     background: var(--color-bg-galaxy);
     border-radius: var(--radius-full);
     overflow: hidden;
@@ -667,67 +712,138 @@ body {
     height: 100%;
     width: 100%;
     background: linear-gradient(90deg, var(--color-health), var(--color-goku-orange));
-    transition: width var(--transition-base);
+    transition: width var(--transition-fast);
 }
 
-#playerHealth {
-    background: linear-gradient(90deg, var(--color-ki-blue), var(--color-ki-green));
+#playerHealthBar {
+    background: linear-gradient(90deg, var(--color-ki-green), var(--color-ki-blue));
+    border-color: var(--color-ki-blue);
 }
 
-.vs-text {
-    font-size: 2rem;
+#enemyHealthBar {
+    border-color: var(--color-health);
+}
+
+.ki-bar {
+    height: 12px;
+    border-color: var(--color-ki-blue);
+}
+
+.ki-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--gradient-ki);
+    transition: width var(--transition-fast);
+}
+
+.timer-display {
+    font-size: 2.5rem;
     font-weight: 900;
-    color: var(--color-goku-orange);
-    text-transform: uppercase;
+    color: var(--color-saiyan-gold);
+    text-align: center;
     padding: 0 var(--spacing-md);
+    min-width: 80px;
+    text-shadow: 0 0 20px var(--color-saiyan-gold);
 }
 
-.battle-actions {
+.fighting-canvas-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+    border: 2px solid var(--color-goku-orange);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+#fightCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--color-bg-space);
+}
+
+.fighting-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-sm);
+    background: var(--color-bg-space);
+    border-radius: var(--radius-md);
+}
+
+.move-indicator {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-ki-blue);
+    text-transform: uppercase;
+}
+
+.combo-display {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-saiyan-gold);
+    text-transform: uppercase;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    display: none;
+    margin-top: var(--spacing-sm);
+    gap: var(--spacing-md);
+}
+
+.dpad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-xs);
+    width: 150px;
 }
 
-.btn-battle {
-    background: var(--color-bg-space);
-    color: var(--color-text-primary);
+.dpad-btn {
+    background: var(--color-bg-galaxy);
     border: 2px solid var(--color-goku-orange);
-    padding: var(--spacing-sm);
-    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    font-size: 1.2rem;
     font-weight: 700;
-    text-transform: uppercase;
+    padding: var(--spacing-sm);
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: var(--transition-fast);
+    touch-action: manipulation;
 }
 
-.btn-battle:hover {
+.dpad-btn:active {
     background: var(--color-goku-orange);
-    color: white;
-    box-shadow: var(--shadow-md);
 }
 
-.battle-log {
-    background: var(--color-bg-space);
-    border-radius: var(--radius-md);
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+}
+
+.action-btn {
     padding: var(--spacing-sm);
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid var(--color-ki-blue);
-}
-
-.log-entry {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    padding: var(--spacing-xs) 0;
-    border-bottom: 1px solid var(--color-bg-galaxy);
-}
-
-.log-entry:last-child {
-    border-bottom: none;
-    color: var(--color-success);
+    font-size: 0.75rem;
     font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid var(--color-goku-orange);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.action-btn.punch { background: var(--color-vegeta-blue); color: white; }
+.action-btn.kick { background: var(--color-goku-orange); color: white; }
+.action-btn.block { background: var(--color-ki-blue); color: white; }
+.action-btn.blast { background: var(--color-ki-green); color: var(--color-bg-space); }
+.action-btn.special { 
+    background: var(--color-saiyan-gold); 
+    color: var(--color-bg-space);
+    grid-column: span 3;
+}
+
+.action-btn:active {
+    filter: brightness(1.3);
+    transform: scale(0.95);
 }
 
 /* ============================================
@@ -1125,17 +1241,30 @@ body {
         flex-direction: column;
     }
     
+    .controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
     .story-stats {
         grid-template-columns: 1fr;
     }
     
-    .battle-scene {
+    .fighting-hud {
         flex-direction: column;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
     }
     
-    .battle-actions {
-        grid-template-columns: 1fr;
+    .player-hud,
+    .enemy-hud {
+        max-width: 100%;
+    }
+    
+    .timer-display {
+        font-size: 1.8rem;
+    }
+    
+    .mobile-controls {
+        display: flex;
     }
     
     .levelup-stats {
@@ -1162,6 +1291,10 @@ body {
         left: 10px;
         min-width: 150px;
     }
+    
+    #fightCanvas {
+        height: 300px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1177,12 +1310,16 @@ body {
         font-size: 1rem;
     }
     
-    .fighter-avatar {
-        font-size: 3rem;
+    .timer-display {
+        font-size: 1.5rem;
+        min-width: 60px;
     }
     
-    .vs-text {
-        font-size: 1.5rem;
-        padding: var(--spacing-xs);
+    .action-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .action-btn.special {
+        grid-column: span 2;
     }
 }
