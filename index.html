@@ -82,6 +82,40 @@
                 </div>
             </div>
 
+            <div class="controls-guide">
+                <h3>⚔️ BATTLE CONTROLS ⚔️</h3>
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <span class="control-key">← →</span>
+                        <span class="control-desc">Move</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">↑ / W</span>
+                        <span class="control-desc">Jump</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">Z / K</span>
+                        <span class="control-desc">Punch</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">X / L</span>
+                        <span class="control-desc">Kick</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">C / I</span>
+                        <span class="control-desc">Block</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">V / J</span>
+                        <span class="control-desc">Ki Blast</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="control-key">Space</span>
+                        <span class="control-desc">Special Move</span>
+                    </div>
+                </div>
+            </div>
+
             <button class="btn-start" onclick="game.startAdventure()">
                 <span class="btn-text">BEGIN ADVENTURE</span>
                 <span class="btn-icon">⚡</span>
@@ -120,46 +154,62 @@
                 </button>
             </div>
 
-            <!-- Battle Arena (hidden by default) -->
-            <div class="battle-arena" id="battleArena">
-                <div class="battle-scene">
-                    <div class="fighter player-fighter">
-                        <div class="fighter-avatar">🥋</div>
+            <!-- Fighting Game Arena -->
+            <div class="fighting-arena" id="fightingArena">
+                <div class="fighting-hud">
+                    <div class="player-hud">
                         <div class="fighter-name">YOU</div>
-                        <div class="fighter-health">
+                        <div class="health-bar-container">
                             <div class="health-bar">
-                                <div class="health-fill" id="playerHealth"></div>
+                                <div class="health-fill" id="playerHealthBar"></div>
+                            </div>
+                        </div>
+                        <div class="ki-bar-container">
+                            <div class="ki-bar">
+                                <div class="ki-fill" id="playerKiBar"></div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="vs-text">VS</div>
-
-                    <div class="fighter enemy-fighter">
-                        <div class="fighter-avatar" id="enemyAvatar">👾</div>
-                        <div class="fighter-name" id="enemyName">Bug Monster</div>
-                        <div class="fighter-health">
+                    
+                    <div class="timer-display" id="timerDisplay">60</div>
+                    
+                    <div class="enemy-hud">
+                        <div class="fighter-name" id="enemyNameDisplay">Enemy</div>
+                        <div class="health-bar-container">
                             <div class="health-bar">
-                                <div class="health-fill" id="enemyHealth"></div>
+                                <div class="health-fill" id="enemyHealthBar"></div>
+                            </div>
+                        </div>
+                        <div class="ki-bar-container">
+                            <div class="ki-bar">
+                                <div class="ki-fill" id="enemyKiBar"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="battle-actions">
-                    <button class="btn-battle" onclick="game.battleAttack('code')">
-                        <span>💻 Code Strike</span>
-                    </button>
-                    <button class="btn-battle" onclick="game.battleAttack('debug')">
-                        <span>🔍 Debug Beam</span>
-                    </button>
-                    <button class="btn-battle" onclick="game.battleAttack('special')">
-                        <span>⚡ Special Move</span>
-                    </button>
+                <div class="fighting-canvas-container">
+                    <canvas id="fightCanvas" width="800" height="400"></canvas>
                 </div>
 
-                <div class="battle-log" id="battleLog">
-                    <p class="log-entry">Battle started!</p>
+                <div class="fighting-controls">
+                    <div class="move-indicator" id="moveIndicator">Ready!</div>
+                    <div class="combo-display" id="comboDisplay">COMBO: 0</div>
+                </div>
+
+                <div class="mobile-controls" id="mobileControls">
+                    <div class="dpad">
+                        <button class="dpad-btn" data-key="ArrowLeft">←</button>
+                        <button class="dpad-btn" data-key="ArrowUp">↑</button>
+                        <button class="dpad-btn" data-key="ArrowRight">→</button>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn punch" data-key="z">PUNCH</button>
+                        <button class="action-btn kick" data-key="x">KICK</button>
+                        <button class="action-btn block" data-key="c">BLOCK</button>
+                        <button class="action-btn blast" data-key="v">KI BLAST</button>
+                        <button class="action-btn special" data-key=" ">SPECIAL</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,7 +259,7 @@
                 </div>
                 <div class="final-stat">
                     <span class="stat-label">Battles Won</span>
-                    <span class="stat-value" id="battlesWon">8</span>
+                    <span class="stat-value" id="battlesWon">5</span>
                 </div>
                 <div class="final-stat">
                     <span class="stat-label">Years of Experience</span>
@@ -217,7 +267,7 @@
                 </div>
                 <div class="final-stat">
                     <span class="stat-label">Companies Conquered</span>
-                    <span class="stat-value">8</span>
+                    <span class="stat-value">5</span>
                 </div>
             </div>
 
