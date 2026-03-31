@@ -1,6 +1,6 @@
 /* ============================================
-   DBZ Fighting Game Engine
-   Real-time combat with AI opponent
+   DBZ Fighting Game Engine v2
+   Enhanced with animated sprites & effects
    ============================================ */
 
 const game = {
@@ -20,7 +20,7 @@ const game = {
             icon: "🎓",
             narration: "Our hero begins at the Allan Gray Academy, where young warriors learn the fundamentals of code. Fresh from university with Summa Cum Laude honors, Cheven enters the training grounds ready to prove their worth!",
             stats: { powerLevel: 9000, rank: "Academy Trainee", location: "Cape Town" },
-            enemy: { name: "Final Project Boss", avatar: "📚", health: 100, attack: "Deadline Pressure", speed: 0.5 },
+            enemy: { name: "Final Project Boss", avatar: "📚", health: 100, attack: "Deadline Pressure", speed: 0.5, color: '#8B4513' },
             specialMove: "All-Nighter Combo",
             victoryText: "Victory! The academy is conquered!",
             powerGain: 6000,
@@ -32,7 +32,7 @@ const game = {
             icon: "💎",
             narration: "The first real battle begins! Entelect assigns our hero to the legendary De Beers mission. A customer-facing portal must be built, and an internal sales planning system for the diamond industry awaits!",
             stats: { powerLevel: 15000, rank: "Junior Developer", location: "Johannesburg" },
-            enemy: { name: "Legacy System", avatar: "👾", health: 120, attack: "Spaghetti Code", speed: 0.6 },
+            enemy: { name: "Legacy System", avatar: "👾", health: 120, attack: "Spaghetti Code", speed: 0.6, color: '#4B0082' },
             specialMove: "Diamond Cut Technique",
             victoryText: "The diamond system shines bright!",
             powerGain: 8000,
@@ -44,7 +44,7 @@ const game = {
             icon: "📊",
             narration: "A new challenge emerges! The ancient Delphi system has guarded its secrets for decades. Our hero must rewrite this legacy using modern jutsu and migrate it to the cloud!",
             stats: { powerLevel: 23000, rank: "Intermediate Warrior", location: "Remote" },
-            enemy: { name: "Delphi Guardian", avatar: "👹", health: 140, attack: "COBOL Curse", speed: 0.7 },
+            enemy: { name: "Delphi Guardian", avatar: "👹", health: 140, attack: "COBOL Curse", speed: 0.7, color: '#8B0000' },
             specialMove: "Cloud Migration Beam",
             victoryText: "The cloud welcomes another soul!",
             powerGain: 10000,
@@ -56,7 +56,7 @@ const game = {
             icon: "🔄",
             narration: "The .NET Framework monolith stands tall! Our hero must perform the forbidden technique - migrating critical functionalities to standalone .NET 6 while enhancing the front-end!",
             stats: { powerLevel: 33000, rank: "Senior Developer", location: "Cape Town" },
-            enemy: { name: "Monolith Beast", avatar: "🏛️", health: 160, attack: "Tight Coupling", speed: 0.75 },
+            enemy: { name: "Monolith Beast", avatar: "🏛️", health: 160, attack: "Tight Coupling", speed: 0.75, color: '#2F4F4F' },
             specialMove: "Microservices Storm",
             victoryText: "The monolith crumbles!",
             powerGain: 12000,
@@ -68,7 +68,7 @@ const game = {
             icon: "🏦",
             narration: "The ultimate test! Capitec Bank calls for a Software Engineer III. Full-stack development missions await. Our hero must defend the village's digital infrastructure!",
             stats: { powerLevel: 45000, rank: "Elite Jonin", location: "Cape Town" },
-            enemy: { name: "Banking System Dragon", avatar: "🐲", health: 200, attack: "Transaction Storm", speed: 0.85 },
+            enemy: { name: "Banking System Dragon", avatar: "🐲", health: 200, attack: "Transaction Storm", speed: 0.85, color: '#006400' },
             specialMove: "Kafka Stream Kamehameha",
             victoryText: "The bank's systems stand strong!",
             powerGain: 15000,
@@ -318,7 +318,8 @@ const game = {
 };
 
 /* ============================================
-   Fighting Game Engine
+   Enhanced Fighting Game Engine
+   With DBZ-style sprites and effects
    ============================================ */
 
 class FightingGame {
@@ -349,16 +350,16 @@ class FightingGame {
         console.log('FightingGame initialized for chapter:', chapter.title);
         console.log('Canvas:', this.canvas.width, 'x', this.canvas.height);
         
-        // Player
+        // Player - Goku-style warrior
         this.player = {
             x: 100,
             y: 300,
-            width: 50,
-            height: 80,
+            width: 60,
+            height: 100,
             vx: 0,
             vy: 0,
-            speed: 5,
-            jumpPower: -15,
+            speed: 6,
+            jumpPower: -18,
             health: 100,
             maxHealth: 100,
             ki: 100,
@@ -366,23 +367,31 @@ class FightingGame {
             isGrounded: false,
             isAttacking: false,
             isBlocking: false,
+            isCharging: false,
             attackType: null,
             attackCooldown: 0,
             combo: 0,
             direction: 1,
-            avatar: '🥋'
+            frame: 0,
+            frameTimer: 0,
+            auraIntensity: 0,
+            transform: 'base', // base, super
+            hairColor: '#000000',
+            skinColor: '#FFDAB9',
+            giColor: '#FF6600',
+            beltColor: '#0066CC'
         };
         
         // Enemy AI
         this.enemy = {
             x: 650,
             y: 300,
-            width: 50,
-            height: 80,
+            width: 60,
+            height: 100,
             vx: 0,
             vy: 0,
-            speed: chapter.enemy.speed * 3,
-            jumpPower: -12,
+            speed: chapter.enemy.speed * 4,
+            jumpPower: -15,
             health: chapter.enemy.health,
             maxHealth: chapter.enemy.health,
             ki: 100,
@@ -393,17 +402,23 @@ class FightingGame {
             attackType: null,
             attackCooldown: 0,
             direction: -1,
+            frame: 0,
+            frameTimer: 0,
+            auraIntensity: 0,
             avatar: chapter.enemy.avatar,
             aiTimer: 0,
-            aiState: 'idle'
+            aiState: 'idle',
+            color: chapter.enemy.color || '#8B0000'
         };
         
-        // Projectiles
+        // Effects
         this.projectiles = [];
-        
-        // Hit effects
+        this.particles = [];
         this.hitEffects = [];
         this.damageTexts = [];
+        this.auraParticles = [];
+        this.speedLines = [];
+        this.impactFlashes = [];
         
         // Input state
         this.keys = {};
@@ -436,6 +451,9 @@ class FightingGame {
                 this.endGame('timeout');
             }
         }, 1000);
+        
+        // Spawn initial aura particles
+        this.spawnAuraParticles();
     }
     
     resizeCanvas() {
@@ -462,6 +480,12 @@ class FightingGame {
             this.player.isGrounded = false;
         }
         
+        // Charge KI
+        if ((e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') && this.player.isGrounded) {
+            this.player.isCharging = true;
+            this.player.auraIntensity = 1;
+        }
+        
         // Punch
         if ((e.key === 'z' || e.key === 'Z' || e.key === 'k' || e.key === 'K') && this.player.attackCooldown <= 0) {
             this.performAttack('punch', 10, 5);
@@ -483,7 +507,7 @@ class FightingGame {
             this.fireKiBlast();
         }
         
-        // Special Move
+        // Special Move (Super Saiyan Kamehameha)
         if (e.key === ' ' && this.player.ki >= 50) {
             this.performSpecial();
         }
@@ -496,6 +520,11 @@ class FightingGame {
             this.player.isBlocking = false;
             this.updateMoveIndicator('Ready!');
         }
+        
+        if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+            this.player.isCharging = false;
+            this.player.auraIntensity = 0;
+        }
     }
     
     performAttack(type, damage, kiCost) {
@@ -504,17 +533,24 @@ class FightingGame {
         this.player.attackCooldown = 30;
         this.player.ki = Math.max(0, this.player.ki - kiCost);
         
+        // Create attack particles
+        this.createAttackParticles(type);
+        
         // Check hit
         const hit = this.checkAttackHit(type);
         if (hit) {
             this.player.combo++;
-            const actualDamage = this.player.isBlocking ? damage * 0.2 : damage;
+            const actualDamage = this.enemy.isBlocking ? damage * 0.2 : damage;
             const multiplier = 1 + (this.player.combo * 0.1);
             const finalDamage = Math.floor(actualDamage * multiplier);
             this.enemy.health = Math.max(0, this.enemy.health - finalDamage);
             this.showDamageText(`${finalDamage}`, 'red');
             this.createHitEffect(this.enemy.x, this.enemy.y);
+            this.createImpactFlash(this.enemy.x, this.enemy.y);
             this.updateComboDisplay();
+            
+            // Knockback
+            this.enemy.x += this.player.direction * 20;
             
             if (this.enemy.health <= 0) {
                 this.endGame('victory');
@@ -533,18 +569,36 @@ class FightingGame {
         this.player.ki -= 50;
         this.player.isAttacking = true;
         this.player.attackType = 'special';
+        this.player.transform = 'super';
+        this.player.hairColor = '#FFD700'; // Super Saiyan gold
+        this.player.auraIntensity = 2;
         
-        // Special is a powerful ki blast
+        // Create massive energy burst
+        for (let i = 0; i < 30; i++) {
+            this.particles.push({
+                x: this.player.x + this.player.width / 2,
+                y: this.player.y + this.player.height / 2,
+                vx: (Math.random() - 0.5) * 15,
+                vy: (Math.random() - 0.5) * 15,
+                radius: Math.random() * 8 + 4,
+                color: '#FFD700',
+                life: 60,
+                alpha: 1
+            });
+        }
+        
+        // Create Kamehameha beam
         this.projectiles.push({
             x: this.player.x + this.player.width,
             y: this.player.y + this.player.height / 2,
-            vx: 15,
+            vx: 20,
             vy: 0,
-            width: 60,
-            height: 30,
-            damage: 30,
+            width: 100,
+            height: 50,
+            damage: 50,
             isPlayer: true,
-            color: '#ffd700'
+            color: '#00BFFF',
+            type: 'beam'
         });
         
         this.showDamageText(this.chapter.specialMove, 'gold');
@@ -552,30 +606,67 @@ class FightingGame {
         setTimeout(() => {
             this.player.isAttacking = false;
             this.player.attackType = null;
-        }, 500);
+            this.player.transform = 'base';
+            this.player.hairColor = '#000000';
+            this.player.auraIntensity = 0;
+        }, 1000);
         
         this.updateHealthBars();
     }
     
     fireKiBlast() {
         this.player.ki -= 20;
+        
+        // Create charging particles
+        for (let i = 0; i < 10; i++) {
+            this.particles.push({
+                x: this.player.x + this.player.width,
+                y: this.player.y + this.player.height / 2,
+                vx: Math.random() * 5 + 5,
+                vy: (Math.random() - 0.5) * 3,
+                radius: Math.random() * 4 + 2,
+                color: '#00D4FF',
+                life: 30,
+                alpha: 1
+            });
+        }
+        
         this.projectiles.push({
             x: this.player.x + this.player.width,
             y: this.player.y + this.player.height / 2,
-            vx: 12,
+            vx: 15,
             vy: 0,
-            width: 30,
-            height: 15,
+            width: 40,
+            height: 20,
             damage: 15,
             isPlayer: true,
-            color: '#00d4ff'
+            color: '#00D4FF',
+            type: 'blast'
         });
         
         this.updateHealthBars();
     }
     
+    createAttackParticles(type) {
+        const count = type === 'kick' ? 15 : 10;
+        const color = type === 'kick' ? '#FF4500' : '#FF6347';
+        
+        for (let i = 0; i < count; i++) {
+            this.particles.push({
+                x: this.player.x + (this.player.direction === 1 ? this.player.width : 0),
+                y: this.player.y + Math.random() * this.player.height,
+                vx: this.player.direction * (Math.random() * 8 + 4),
+                vy: (Math.random() - 0.5) * 6,
+                radius: Math.random() * 4 + 2,
+                color: color,
+                life: 20,
+                alpha: 1
+            });
+        }
+    }
+    
     checkAttackHit(type) {
-        const range = type === 'kick' ? 70 : 50;
+        const range = type === 'kick' ? 80 : 60;
         const hitX = this.player.direction === 1 ? 
             this.player.x + this.player.width : 
             this.player.x - range;
@@ -591,9 +682,73 @@ class FightingGame {
             x: x,
             y: y,
             radius: 10,
-            maxRadius: 50,
-            alpha: 1
+            maxRadius: 60,
+            alpha: 1,
+            color: '#FFD700'
         });
+        
+        // Add spark particles
+        for (let i = 0; i < 12; i++) {
+            this.particles.push({
+                x: x,
+                y: y,
+                vx: (Math.random() - 0.5) * 12,
+                vy: (Math.random() - 0.5) * 12,
+                radius: Math.random() * 4 + 2,
+                color: '#FFFF00',
+                life: 25,
+                alpha: 1
+            });
+        }
+    }
+    
+    createImpactFlash(x, y) {
+        this.impactFlashes.push({
+            x: x,
+            y: y,
+            radius: 80,
+            alpha: 0.8,
+            life: 10
+        });
+    }
+    
+    spawnAuraParticles() {
+        // Continuously spawn aura particles
+        if (this.active) {
+            // Player aura
+            if (this.player.auraIntensity > 0 || this.player.isCharging) {
+                for (let i = 0; i < 3; i++) {
+                    this.auraParticles.push({
+                        x: this.player.x + Math.random() * this.player.width,
+                        y: this.player.y + Math.random() * this.player.height,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: -Math.random() * 5 - 3,
+                        radius: Math.random() * 5 + 3,
+                        color: this.player.transform === 'super' ? '#FFD700' : '#00BFFF',
+                        life: 40,
+                        alpha: 0.8
+                    });
+                }
+            }
+            
+            // Enemy aura
+            if (this.enemy.health < this.enemy.maxHealth * 0.5) {
+                for (let i = 0; i < 2; i++) {
+                    this.auraParticles.push({
+                        x: this.enemy.x + Math.random() * this.enemy.width,
+                        y: this.enemy.y + Math.random() * this.enemy.height,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: -Math.random() * 5 - 3,
+                        radius: Math.random() * 5 + 3,
+                        color: '#FF4500',
+                        life: 40,
+                        alpha: 0.8
+                    });
+                }
+            }
+            
+            setTimeout(() => this.spawnAuraParticles(), 50);
+        }
     }
     
     showDamageText(text, color) {
@@ -603,7 +758,8 @@ class FightingGame {
             y: this.enemy.y - 50,
             alpha: 1,
             color: color,
-            vy: -2
+            vy: -3,
+            scale: 1.5
         });
     }
     
@@ -636,33 +792,29 @@ class FightingGame {
     updateAI(deltaTime) {
         this.enemy.aiTimer += deltaTime;
         
-        // Simple AI states
         const distance = Math.abs(this.enemy.x - this.player.x);
         
         if (this.enemy.aiTimer > 500) {
             this.enemy.aiTimer = 0;
             
-            // Decide action
             const rand = Math.random();
             
             if (distance > 200) {
-                // Move towards player
                 this.enemy.vx = this.enemy.direction * this.enemy.speed;
             } else if (rand < 0.3) {
-                // Attack
                 if (this.enemy.attackCooldown <= 0 && this.enemy.ki >= 5) {
                     this.enemy.isAttacking = true;
                     this.enemy.attackType = 'punch';
                     this.enemy.attackCooldown = 40;
                     this.enemy.ki -= 5;
                     
-                    // Check if AI hits player
                     if (this.checkEnemyHit()) {
                         const damage = this.player.isBlocking ? 3 : 8;
                         this.player.health = Math.max(0, this.player.health - damage);
                         this.showDamageText(`${damage}`, 'orange');
                         this.player.combo = 0;
                         this.updateComboDisplay();
+                        this.createHitEffect(this.player.x, this.player.y);
                         
                         if (this.player.health <= 0) {
                             this.onDefeat();
@@ -675,27 +827,25 @@ class FightingGame {
                     }, 200);
                 }
             } else if (rand < 0.5 && this.enemy.ki >= 20) {
-                // Fire projectile
                 this.projectiles.push({
                     x: this.enemy.x,
                     y: this.enemy.y + this.enemy.height / 2,
-                    vx: -10,
+                    vx: -12,
                     vy: 0,
-                    width: 30,
-                    height: 15,
+                    width: 40,
+                    height: 20,
                     damage: 12,
                     isPlayer: false,
-                    color: '#ff4444'
+                    color: '#FF4500',
+                    type: 'blast'
                 });
                 this.enemy.ki -= 20;
             } else if (rand < 0.6) {
-                // Jump
                 if (this.enemy.isGrounded) {
                     this.enemy.vy = this.enemy.jumpPower;
                     this.enemy.isGrounded = false;
                 }
             } else if (rand < 0.7) {
-                // Block
                 this.enemy.isBlocking = true;
                 setTimeout(() => {
                     this.enemy.isBlocking = false;
@@ -705,7 +855,6 @@ class FightingGame {
             this.updateHealthBars();
         }
         
-        // Apply AI velocity
         if (distance > 150) {
             this.enemy.direction = this.player.x < this.enemy.x ? -1 : 1;
             this.enemy.vx = this.enemy.direction * this.enemy.speed * 0.5;
@@ -738,6 +887,12 @@ class FightingGame {
         if (this.keys['arrowright'] || this.keys['d']) {
             this.player.vx = this.player.speed;
             this.player.direction = 1;
+        }
+        
+        // Charging KI
+        if (this.player.isCharging && this.player.isGrounded) {
+            this.player.ki = Math.min(this.player.maxKi, this.player.ki + 0.5);
+            this.updateHealthBars();
         }
         
         // Apply gravity
@@ -786,7 +941,6 @@ class FightingGame {
         this.projectiles = this.projectiles.filter(proj => {
             proj.x += proj.vx;
             
-            // Check collision
             const target = proj.isPlayer ? this.enemy : this.player;
             if (proj.x < target.x + target.width &&
                 proj.x + proj.width > target.x &&
@@ -797,12 +951,11 @@ class FightingGame {
                 target.health = Math.max(0, target.health - damage);
                 this.showDamageText(`${Math.floor(damage)}`, proj.isPlayer ? 'red' : 'orange');
                 this.createHitEffect(target.x, target.y);
+                this.createImpactFlash(target.x, target.y);
                 this.updateHealthBars();
                 
-                if (target.health <= 0) {
-                    if (proj.isPlayer) {
-                        this.endGame('victory');
-                    }
+                if (target.health <= 0 && proj.isPlayer) {
+                    this.endGame('victory');
                 }
                 
                 return false;
@@ -811,11 +964,38 @@ class FightingGame {
             return proj.x > -100 && proj.x < this.canvas.width + 100;
         });
         
+        // Update particles
+        this.particles = this.particles.filter(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.2; // gravity
+            p.life--;
+            p.alpha = p.life / 60;
+            return p.life > 0;
+        });
+        
+        // Update aura particles
+        this.auraParticles = this.auraParticles.filter(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life--;
+            p.alpha = p.life / 40;
+            return p.life > 0;
+        });
+        
         // Update hit effects
         this.hitEffects = this.hitEffects.filter(effect => {
-            effect.radius += 2;
+            effect.radius += 3;
             effect.alpha -= 0.05;
             return effect.alpha > 0;
+        });
+        
+        // Update impact flashes
+        this.impactFlashes = this.impactFlashes.filter(flash => {
+            flash.radius += 5;
+            flash.alpha -= 0.08;
+            flash.life--;
+            return flash.life > 0;
         });
         
         // Update damage texts
@@ -825,6 +1005,19 @@ class FightingGame {
             return text.alpha > 0;
         });
         
+        // Animation frames
+        this.player.frameTimer++;
+        if (this.player.frameTimer > 5) {
+            this.player.frame = (this.player.frame + 1) % 4;
+            this.player.frameTimer = 0;
+        }
+        
+        this.enemy.frameTimer++;
+        if (this.enemy.frameTimer > 5) {
+            this.enemy.frame = (this.enemy.frame + 1) % 4;
+            this.enemy.frameTimer = 0;
+        }
+        
         this.updateHealthBars();
     }
     
@@ -833,97 +1026,380 @@ class FightingGame {
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Draw background
-        this.ctx.fillStyle = 'rgba(10, 10, 26, 0.8)';
+        // Draw background gradient
+        const bgGradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
+        bgGradient.addColorStop(0, '#0a0a1a');
+        bgGradient.addColorStop(0.5, '#1a1a3e');
+        bgGradient.addColorStop(1, '#0f0f2d');
+        this.ctx.fillStyle = bgGradient;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Draw ground
-        const gradient = this.ctx.createLinearGradient(0, this.groundY, 0, this.canvas.height);
-        gradient.addColorStop(0, '#f97c00');
-        gradient.addColorStop(1, '#c95a00');
-        this.ctx.fillStyle = gradient;
-        this.ctx.fillRect(0, this.groundY, this.canvas.width, this.canvas.height - this.groundY);
+        // Draw ground with DBZ arena style
+        this.drawArenaGround();
         
-        // Draw player
+        // Draw speed lines
+        this.drawSpeedLines();
+        
+        // Draw aura particles
+        this.auraParticles.forEach(p => {
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = p.color;
+            this.ctx.globalAlpha = p.alpha * 0.6;
+            this.ctx.fill();
+        });
+        this.ctx.globalAlpha = 1;
+        
+        // Draw particles
+        this.particles.forEach(p => {
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = p.color;
+            this.ctx.globalAlpha = p.alpha;
+            this.ctx.fill();
+        });
+        this.ctx.globalAlpha = 1;
+        
+        // Draw player character
         this.drawFighter(this.player);
         
-        // Draw enemy
+        // Draw enemy character
         this.drawFighter(this.enemy);
         
         // Draw projectiles
         this.projectiles.forEach(proj => {
-            this.ctx.fillStyle = proj.color;
-            this.ctx.shadowColor = proj.color;
-            this.ctx.shadowBlur = 20;
-            this.ctx.fillRect(proj.x, proj.y, proj.width, proj.height);
-            this.ctx.shadowBlur = 0;
+            this.drawProjectile(proj);
         });
         
         // Draw hit effects
         this.hitEffects.forEach(effect => {
             this.ctx.beginPath();
             this.ctx.arc(effect.x, effect.y, effect.radius, 0, Math.PI * 2);
-            this.ctx.fillStyle = `rgba(255, 215, 0, ${effect.alpha})`;
+            this.ctx.strokeStyle = effect.color;
+            this.ctx.lineWidth = 4;
+            this.ctx.globalAlpha = effect.alpha;
+            this.ctx.stroke();
+        });
+        this.ctx.globalAlpha = 1;
+        
+        // Draw impact flashes
+        this.impactFlashes.forEach(flash => {
+            const gradient = this.ctx.createRadialGradient(
+                flash.x, flash.y, 0,
+                flash.x, flash.y, flash.radius
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${flash.alpha})`);
+            gradient.addColorStop(0.5, `rgba(255, 215, 0, ${flash.alpha * 0.5})`);
+            gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+            this.ctx.fillStyle = gradient;
+            this.ctx.beginPath();
+            this.ctx.arc(flash.x, flash.y, flash.radius, 0, Math.PI * 2);
             this.ctx.fill();
         });
         
         // Draw damage texts
         this.damageTexts.forEach(text => {
+            this.ctx.save();
             this.ctx.fillStyle = text.color;
             this.ctx.globalAlpha = text.alpha;
-            this.ctx.font = 'bold 24px Inter';
-            this.ctx.fillText(text.text, text.x, text.y);
-            this.ctx.globalAlpha = 1;
+            this.ctx.font = 'bold 32px Impact, sans-serif';
+            this.ctx.strokeStyle = 'black';
+            this.ctx.lineWidth = 3;
+            this.ctx.translate(text.x, text.y);
+            this.ctx.scale(text.scale, text.scale);
+            this.ctx.strokeText(text.text, 0, 0);
+            this.ctx.fillText(text.text, 0, 0);
+            this.ctx.restore();
         });
+        this.ctx.globalAlpha = 1;
+    }
+    
+    drawArenaGround() {
+        // DBZ tournament arena floor
+        const gradient = this.ctx.createLinearGradient(0, this.groundY, 0, this.canvas.height);
+        gradient.addColorStop(0, '#FF6600');
+        gradient.addColorStop(0.3, '#CC5500');
+        gradient.addColorStop(1, '#8B4500');
+        this.ctx.fillStyle = gradient;
+        this.ctx.fillRect(0, this.groundY, this.canvas.width, this.canvas.height - this.groundY);
+        
+        // Arena ring pattern
+        this.ctx.strokeStyle = '#FFD700';
+        this.ctx.lineWidth = 3;
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, this.groundY + 10);
+        this.ctx.lineTo(this.canvas.width, this.groundY + 10);
+        this.ctx.stroke();
+    }
+    
+    drawSpeedLines() {
+        // Dynamic speed lines for action feel
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        this.ctx.lineWidth = 2;
+        for (let i = 0; i < 20; i++) {
+            const x = Math.random() * this.canvas.width;
+            const y = Math.random() * this.canvas.height;
+            const length = Math.random() * 100 + 50;
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, y);
+            this.ctx.lineTo(x - length, y);
+            this.ctx.stroke();
+        }
+    }
+    
+    drawProjectile(proj) {
+        if (proj.type === 'beam') {
+            // Kamehameha-style beam
+            const gradient = this.ctx.createLinearGradient(proj.x, proj.y, proj.x + proj.width, proj.y);
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(0.2, proj.color);
+            gradient.addColorStop(0.5, '#00FFFF');
+            gradient.addColorStop(1, 'transparent');
+            
+            this.ctx.fillStyle = gradient;
+            this.ctx.shadowColor = proj.color;
+            this.ctx.shadowBlur = 30;
+            
+            // Draw beam with energy waves
+            for (let i = 0; i < 3; i++) {
+                const yOffset = Math.sin(Date.now() / 100 + i) * 5;
+                this.ctx.beginPath();
+                this.ctx.ellipse(
+                    proj.x + proj.width / 2,
+                    proj.y + yOffset,
+                    proj.width / 2,
+                    proj.height / 2 + i * 3,
+                    0, 0, Math.PI * 2
+                );
+                this.ctx.fill();
+            }
+            this.ctx.shadowBlur = 0;
+        } else {
+            // Ki blast
+            const gradient = this.ctx.createRadialGradient(
+                proj.x + proj.width / 2, proj.y + proj.height / 2, 0,
+                proj.x + proj.width / 2, proj.y + proj.height / 2, proj.width
+            );
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(0.3, proj.color);
+            gradient.addColorStop(1, 'transparent');
+            
+            this.ctx.fillStyle = gradient;
+            this.ctx.shadowColor = proj.color;
+            this.ctx.shadowBlur = 20;
+            this.ctx.beginPath();
+            this.ctx.arc(
+                proj.x + proj.width / 2,
+                proj.y + proj.height / 2,
+                proj.width / 2,
+                0, Math.PI * 2
+            );
+            this.ctx.fill();
+            this.ctx.shadowBlur = 0;
+        }
     }
     
     drawFighter(fighter) {
-        // Aura effect
-        if (fighter.isAttacking && fighter.attackType === 'special') {
-            this.ctx.beginPath();
-            this.ctx.arc(fighter.x + fighter.width/2, fighter.y + fighter.height/2, 60, 0, Math.PI * 2);
-            this.ctx.fillStyle = 'rgba(255, 215, 0, 0.3)';
-            this.ctx.fill();
+        const ctx = this.ctx;
+        const x = fighter.x;
+        const y = fighter.y;
+        const w = fighter.width;
+        const h = fighter.height;
+        
+        ctx.save();
+        
+        // Draw aura if charging or powered up
+        if (fighter.auraIntensity > 0 || fighter.isCharging) {
+            const auraColor = fighter.transform === 'super' ? '#FFD700' : '#00BFFF';
+            const auraSize = fighter.auraIntensity > 0 ? 30 : 15;
+            
+            // Pulsing aura
+            const pulse = Math.sin(Date.now() / 200) * 5 + auraSize;
+            const auraGradient = ctx.createRadialGradient(
+                x + w / 2, y + h / 2, w / 2,
+                x + w / 2, y + h / 2, w / 2 + pulse
+            );
+            auraGradient.addColorStop(0, `${auraColor}40`);
+            auraGradient.addColorStop(0.5, `${auraColor}20`);
+            auraGradient.addColorStop(1, 'transparent');
+            
+            ctx.fillStyle = auraGradient;
+            ctx.beginPath();
+            ctx.ellipse(x + w / 2, y + h / 2, w / 2 + pulse, h / 2 + pulse, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Rising energy particles
+            for (let i = 0; i < 5; i++) {
+                const px = x + Math.random() * w;
+                const py = y + h - Math.random() * h;
+                ctx.fillStyle = auraColor;
+                ctx.globalAlpha = 0.6;
+                ctx.beginPath();
+                ctx.arc(px, py, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
         }
+        
+        // Flip sprite based on direction
+        ctx.translate(x + w / 2, y + h / 2);
+        if (fighter.direction === -1) {
+            ctx.scale(-1, 1);
+        }
+        
+        // Animation bob
+        const bob = Math.sin(fighter.frame * Math.PI / 2) * 3;
+        
+        // Draw DBZ-style character
+        if (fighter === this.player) {
+            this.drawGokuStyle(ctx, w, h, bob, fighter);
+        } else {
+            this.drawEnemyStyle(ctx, w, h, bob, fighter);
+        }
+        
+        ctx.restore();
         
         // Block shield
         if (fighter.isBlocking) {
-            this.ctx.strokeStyle = '#00d4ff';
-            this.ctx.lineWidth = 3;
-            this.ctx.beginPath();
-            const shieldX = fighter.direction === 1 ? 
-                fighter.x + fighter.width : fighter.x - 20;
-            this.ctx.arc(shieldX + 10, fighter.y + fighter.height/2, 40, -Math.PI/2, Math.PI/2, fighter.direction !== 1);
-            this.ctx.stroke();
+            ctx.strokeStyle = '#00D4FF';
+            ctx.lineWidth = 4;
+            ctx.shadowColor = '#00D4FF';
+            ctx.shadowBlur = 15;
+            ctx.beginPath();
+            const shieldX = fighter.direction === 1 ? w : -20;
+            ctx.arc(shieldX + w / 2, h / 2, h / 2 + 10, -Math.PI / 2, Math.PI / 2, fighter.direction !== 1);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
         }
-        
-        // Draw avatar
-        this.ctx.font = '60px Inter';
-        this.ctx.textAlign = 'center';
-        this.ctx.textBaseline = 'middle';
-        
-        // Flip sprite based on direction
-        this.ctx.save();
-        this.ctx.translate(fighter.x + fighter.width/2, fighter.y + fighter.height/2);
-        if (fighter.direction === -1) {
-            this.ctx.scale(-1, 1);
-        }
-        
-        // Attack pose
-        if (fighter.isAttacking) {
-            this.ctx.translate(fighter.direction * 10, 0);
-        }
-        
-        this.ctx.fillText(fighter.avatar, 0, 0);
-        this.ctx.restore();
         
         // Attack effect
         if (fighter.isAttacking) {
-            this.ctx.fillStyle = '#ffd700';
-            const effectX = fighter.direction === 1 ? 
-                fighter.x + fighter.width : fighter.x - 30;
-            this.ctx.fillRect(effectX, fighter.y + 30, 30, 20);
+            ctx.fillStyle = '#FFD700';
+            ctx.shadowColor = '#FFD700';
+            ctx.shadowBlur = 20;
+            const effectX = fighter.direction === 1 ? w : -30;
+            ctx.fillRect(effectX, h / 2 - 10, 30, 20);
+            ctx.shadowBlur = 0;
         }
+    }
+    
+    drawGokuStyle(ctx, w, h, bob, fighter) {
+        // Spiky hair
+        ctx.fillStyle = fighter.hairColor;
+        ctx.beginPath();
+        ctx.moveTo(-w / 4, -h / 4 + bob);
+        ctx.lineTo(-w / 2, -h / 2 + bob);
+        ctx.lineTo(-w / 4, -h / 3 + bob);
+        ctx.lineTo(0, -h / 1.8 + bob);
+        ctx.lineTo(w / 4, -h / 3 + bob);
+        ctx.lineTo(w / 2, -h / 2 + bob);
+        ctx.lineTo(w / 4, -h / 4 + bob);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Head
+        ctx.fillStyle = fighter.skinColor;
+        ctx.beginPath();
+        ctx.ellipse(0, -h / 6 + bob, w / 4, h / 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Body (Gi)
+        ctx.fillStyle = fighter.giColor;
+        ctx.beginPath();
+        ctx.moveTo(-w / 3, 0);
+        ctx.lineTo(w / 3, 0);
+        ctx.lineTo(w / 4, h / 2);
+        ctx.lineTo(-w / 4, h / 2);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Belt
+        ctx.fillStyle = fighter.beltColor;
+        ctx.fillRect(-w / 3, h / 4, w / 1.5, h / 8);
+        
+        // Arms (animated based on attack)
+        ctx.fillStyle = fighter.skinColor;
+        if (fighter.isAttacking && fighter.attackType === 'punch') {
+            // Punching arm
+            ctx.beginPath();
+            ctx.moveTo(w / 4, h / 6);
+            ctx.lineTo(w / 1.5, h / 6);
+            ctx.lineWidth = w / 6;
+            ctx.strokeStyle = fighter.skinColor;
+            ctx.stroke();
+        } else if (fighter.isAttacking && fighter.attackType === 'kick') {
+            // Kicking leg
+            ctx.fillStyle = fighter.giColor;
+            ctx.beginPath();
+            ctx.moveTo(0, h / 3);
+            ctx.lineTo(w / 2, h / 6);
+            ctx.lineWidth = w / 5;
+            ctx.strokeStyle = fighter.giColor;
+            ctx.stroke();
+        } else {
+            // Idle arms
+            ctx.beginPath();
+            ctx.moveTo(-w / 4, h / 6);
+            ctx.lineTo(-w / 3, h / 3);
+            ctx.moveTo(w / 4, h / 6);
+            ctx.lineTo(w / 3, h / 3);
+            ctx.lineWidth = w / 8;
+            ctx.strokeStyle = fighter.skinColor;
+            ctx.stroke();
+        }
+        
+        // Legs
+        ctx.fillStyle = fighter.giColor;
+        ctx.fillRect(-w / 6, h / 2, w / 5, h / 3);
+        ctx.fillRect(w / 12, h / 2, w / 5, h / 3);
+        
+        // Boots
+        ctx.fillStyle = '#0066CC';
+        ctx.fillRect(-w / 6, h * 0.75, w / 5, h / 6);
+        ctx.fillRect(w / 12, h * 0.75, w / 5, h / 6);
+        
+        // Eyes (determined expression)
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.ellipse(w / 8, -h / 6 + bob, 3, 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    drawEnemyStyle(ctx, w, h, bob, fighter) {
+        // Enemy silhouette with glowing effects
+        const gradient = ctx.createRadialGradient(0, 0, w / 4, 0, 0, w / 2);
+        gradient.addColorStop(0, fighter.color);
+        gradient.addColorStop(1, '#000000');
+        
+        ctx.fillStyle = gradient;
+        
+        // Menacing figure
+        ctx.beginPath();
+        ctx.moveTo(0, -h / 2 + bob);
+        ctx.lineTo(w / 3, -h / 6);
+        ctx.lineTo(w / 2, h / 3);
+        ctx.lineTo(w / 6, h / 2);
+        ctx.lineTo(-w / 6, h / 2);
+        ctx.lineTo(-w / 2, h / 3);
+        ctx.lineTo(-w / 3, -h / 6);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Glowing eyes
+        ctx.fillStyle = '#FF0000';
+        ctx.shadowColor = '#FF0000';
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(-w / 6, -h / 8 + bob, 4, 0, Math.PI * 2);
+        ctx.arc(w / 6, -h / 8 + bob, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        
+        // Avatar symbol
+        ctx.font = '30px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(fighter.avatar, 0, 0);
     }
     
     endGame(result) {
@@ -932,9 +1408,21 @@ class FightingGame {
         
         if (result === 'victory') {
             this.showDamageText('K.O.!', 'gold');
-            setTimeout(() => this.onVictory(), 1500);
+            // Victory explosion
+            for (let i = 0; i < 50; i++) {
+                this.particles.push({
+                    x: this.enemy.x + this.enemy.width / 2,
+                    y: this.enemy.y + this.enemy.height / 2,
+                    vx: (Math.random() - 0.5) * 20,
+                    vy: (Math.random() - 0.5) * 20,
+                    radius: Math.random() * 8 + 4,
+                    color: '#FFD700',
+                    life: 80,
+                    alpha: 1
+                });
+            }
+            setTimeout(() => this.onVictory(), 2000);
         } else if (result === 'timeout') {
-            // Time over - whoever has more health wins
             if (this.player.health > this.enemy.health) {
                 this.onVictory();
             } else {
