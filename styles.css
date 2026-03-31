@@ -1,49 +1,60 @@
 /* ============================================
-   CSS Custom Properties - Naruto Theme
+   CSS Custom Properties - Dragon Ball Z Theme
    ============================================ */
 :root {
-    /* Naruto Color Palette */
-    --color-naruto-orange: #ff6b00;
-    --color-naruto-orange-light: #ff8533;
-    --color-naruto-orange-dark: #cc5500;
+    /* DBZ Color Palette */
+    --color-goku-orange: #f97c00;
+    --color-goku-orange-light: #ff9500;
+    --color-goku-orange-dark: #c95a00;
     
-    --color-konoha-green: #4a7c59;
-    --color-konoha-green-light: #6b9b7a;
-    --color-konoha-green-dark: #2d4a37;
+    --color-vegeta-blue: #1e3a8a;
+    --color-vegeta-blue-light: #3b5998;
+    --color-vegeta-blue-dark: #0f1f4d;
     
-    --color-chakra-blue: #00d4ff;
-    --color-chakra-purple: #9b59b6;
-    --color-rasengan: #87ceeb;
+    --color-saiyan-gold: #ffd700;
+    --color-super-saiyan: #fff59d;
+    --color-super-saiyan-blue: #00bfff;
     
-    --color-bg-primary: #1a1a2e;
-    --color-bg-secondary: #16213e;
-    --color-bg-tertiary: #0f3460;
+    --color-ki-blue: #00d4ff;
+    --color-ki-green: #00ff88;
+    --color-ki-purple: #9b59b6;
+    --color-ki-red: #ff4444;
+    
+    --color-dragon-ball: #ff6b00;
+    --color-dragon-ball-glow: #ff8c00;
+    
+    --color-bg-space: #0a0a1a;
+    --color-bg-nebula: #1a1a3e;
+    --color-bg-galaxy: #0f0f2d;
     
     --color-text-primary: #ffffff;
     --color-text-secondary: #e8e8e8;
     --color-text-muted: #a0a0a0;
     
-    --color-accent-primary: #ff6b00;
-    --color-accent-secondary: #4a7c59;
+    --color-accent-primary: #ffd700;
+    --color-accent-secondary: #f97c00;
     --color-accent-tertiary: #00d4ff;
     
     /* Gradients */
-    --gradient-naruto: linear-gradient(135deg, #ff6b00 0%, #ff8533 100%);
-    --gradient-konoha: linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%);
-    --gradient-chakra: linear-gradient(135deg, #00d4ff 0%, #9b59b6 100%);
-    --gradient-rasengan: linear-gradient(135deg, #87ceeb 0%, #00d4ff 50%, #ffffff 100%);
-    --gradient-sharingan: linear-gradient(135deg, #dc143c 0%, #8b0000 50%, #000000 100%);
+    --gradient-goku: linear-gradient(135deg, #f97c00 0%, #ff9500 100%);
+    --gradient-vegeta: linear-gradient(135deg, #1e3a8a 0%, #3b5998 100%);
+    --gradient-super-saiyan: linear-gradient(135deg, #ffd700 0%, #fff59d 50%, #ffffff 100%);
+    --gradient-super-saiyan-blue: linear-gradient(135deg, #00bfff 0%, #00d4ff 50%, #ffffff 100%);
+    --gradient-ki: linear-gradient(135deg, #00d4ff 0%, #00ff88 50%, #ffd700 100%);
+    --gradient-dragon-ball: linear-gradient(135deg, #ff6b00 0%, #ff8c00 50%, #ffd700 100%);
+    --gradient-space: linear-gradient(180deg, #0a0a1a 0%, #1a1a3e 50%, #0f0f2d 100%);
     
     /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(255, 107, 0, 0.2);
-    --shadow-md: 0 4px 16px rgba(255, 107, 0, 0.3);
-    --shadow-lg: 0 8px 32px rgba(255, 107, 0, 0.4);
-    --shadow-xl: 0 12px 48px rgba(255, 107, 0, 0.5);
-    --shadow-chakra: 0 0 20px rgba(0, 212, 255, 0.6);
+    --shadow-sm: 0 2px 8px rgba(255, 215, 0, 0.2);
+    --shadow-md: 0 4px 16px rgba(255, 215, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(255, 215, 0, 0.4);
+    --shadow-xl: 0 12px 48px rgba(255, 215, 0, 0.5);
+    --shadow-ki: 0 0 20px rgba(0, 212, 255, 0.6);
+    --shadow-super-saiyan: 0 0 30px rgba(255, 215, 0, 0.8);
     
-    /* Glassmorphism - Dark Theme */
-    --glass-bg: rgba(26, 26, 46, 0.85);
-    --glass-border: rgba(255, 107, 0, 0.3);
+    /* Glassmorphism - Space Theme */
+    --glass-bg: rgba(10, 10, 26, 0.85);
+    --glass-border: rgba(255, 215, 0, 0.3);
     --glass-blur: blur(16px);
     
     /* Spacing */
@@ -90,14 +101,14 @@ html {
 body {
     font-family: var(--font-primary);
     color: var(--color-text-primary);
-    background: var(--color-bg-primary);
+    background: var(--color-bg-space);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Japanese Background Text */
+/* Japanese Background Text - Kame Symbol */
 body::before {
-    content: '忍';
+    content: '亀';
     position: fixed;
     top: 50%;
     left: 50%;
@@ -108,10 +119,11 @@ body::before {
     pointer-events: none;
     z-index: 0;
     font-family: var(--font-japanese);
+    color: var(--color-goku-orange);
 }
 
 /* ============================================
-   Animated Background - Ninja Theme
+   Animated Background - Space Battle Theme
    ============================================ */
 .bg-animation {
     position: fixed;
@@ -121,133 +133,213 @@ body::before {
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: var(--gradient-space);
 }
 
-/* Shuriken Stars */
-.shuriken-field {
+/* Stars Field */
+.stars-field {
     position: absolute;
     width: 100%;
     height: 100%;
 }
 
-.shuriken {
+.star {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    opacity: 0.1;
-    animation: shurikenSpin 15s linear infinite;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 3s ease-in-out infinite;
 }
 
-.shuriken::before {
-    content: '✦';
-    font-size: 30px;
-    color: var(--color-naruto-orange);
-}
+.star-1 { top: 10%; left: 10%; animation-delay: 0s; }
+.star-2 { top: 20%; right: 15%; animation-delay: -0.5s; }
+.star-3 { bottom: 30%; left: 20%; animation-delay: -1s; }
+.star-4 { bottom: 15%; right: 25%; animation-delay: -1.5s; }
+.star-5 { top: 50%; left: 50%; animation-delay: -2s; }
+.star-6 { top: 30%; left: 70%; animation-delay: -2.5s; }
+.star-7 { bottom: 50%; right: 40%; animation-delay: -0.3s; }
+.star-8 { top: 70%; left: 30%; animation-delay: -0.8s; }
 
-.shuriken-1 { top: 10%; left: 10%; animation-delay: 0s; }
-.shuriken-2 { top: 20%; right: 15%; animation-delay: -3s; }
-.shuriken-3 { bottom: 30%; left: 20%; animation-delay: -6s; }
-.shuriken-4 { bottom: 15%; right: 25%; animation-delay: -9s; }
-.shuriken-5 { top: 50%; left: 50%; animation-delay: -12s; }
-
-@keyframes shurikenSpin {
-    0% {
-        transform: rotate(0deg) translateY(0);
-        opacity: 0.1;
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
     }
     50% {
-        opacity: 0.3;
-    }
-    100% {
-        transform: rotate(360deg) translateY(-20px);
-        opacity: 0.1;
+        opacity: 1;
+        transform: scale(1.3);
     }
 }
 
-/* Chakra Orbs */
-.chakra-orb {
+/* Dragon Balls */
+.dragon-ball {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--color-chakra-blue) 0%, transparent 70%);
-    opacity: 0.15;
-    animation: chakraPulse 8s ease-in-out infinite;
+    background: var(--gradient-dragon-ball);
+    box-shadow: 0 0 20px var(--color-dragon-ball-glow);
+    animation: dragonBallFloat 8s ease-in-out infinite;
 }
 
-.chakra-orb-1 {
-    width: 200px;
-    height: 200px;
-    top: 20%;
-    right: 10%;
+.dragon-ball::before {
+    content: '★';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-goku-orange-dark);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.dragon-ball-1 {
+    width: 40px;
+    height: 40px;
+    top: 15%;
+    left: 10%;
     animation-delay: 0s;
 }
 
-.chakra-orb-2 {
-    width: 150px;
-    height: 150px;
-    bottom: 30%;
-    left: 15%;
-    animation-delay: -4s;
-}
-
-.chakra-orb-3 {
-    width: 100px;
-    height: 100px;
-    top: 60%;
-    right: 30%;
+.dragon-ball-2 {
+    width: 35px;
+    height: 35px;
+    top: 25%;
+    right: 15%;
     animation-delay: -2s;
 }
 
-@keyframes chakraPulse {
+.dragon-ball-3 {
+    width: 30px;
+    height: 30px;
+    bottom: 35%;
+    left: 20%;
+    animation-delay: -4s;
+}
+
+.dragon-ball-4 {
+    width: 38px;
+    height: 38px;
+    bottom: 20%;
+    right: 25%;
+    animation-delay: -1s;
+}
+
+.dragon-ball-5 {
+    width: 32px;
+    height: 32px;
+    top: 60%;
+    right: 40%;
+    animation-delay: -3s;
+}
+
+@keyframes dragonBallFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+    }
+}
+
+/* Ki Energy Orbs */
+.ki-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--color-ki-blue) 0%, transparent 70%);
+    opacity: 0.15;
+    animation: kiPulse 6s ease-in-out infinite;
+}
+
+.ki-orb-1 {
+    width: 250px;
+    height: 250px;
+    top: 10%;
+    right: 5%;
+    animation-delay: 0s;
+}
+
+.ki-orb-2 {
+    width: 180px;
+    height: 180px;
+    bottom: 25%;
+    left: 10%;
+    animation-delay: -3s;
+}
+
+.ki-orb-3 {
+    width: 120px;
+    height: 120px;
+    top: 55%;
+    right: 35%;
+    animation-delay: -1.5s;
+}
+
+@keyframes kiPulse {
     0%, 100% {
         transform: scale(1);
         opacity: 0.15;
     }
     50% {
-        transform: scale(1.2);
+        transform: scale(1.3);
         opacity: 0.25;
     }
 }
 
-/* Konoha Leaf Animation */
-.konoha-leaves {
+/* Super Saiyan Aura */
+.saiyan-aura {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+    animation: auraPulse 4s ease-in-out infinite;
+}
+
+@keyframes auraPulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Speed Lines - DBZ Style */
+.speed-lines {
     position: absolute;
     width: 100%;
     height: 100%;
     pointer-events: none;
 }
 
-.leaf {
+.speed-line {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background: var(--color-konoha-green);
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    animation: leafFall 20s linear infinite;
-    opacity: 0.6;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+    animation: speedFall 3s linear infinite;
 }
 
-.leaf-1 { left: 10%; animation-delay: 0s; animation-duration: 15s; }
-.leaf-2 { left: 30%; animation-delay: -5s; animation-duration: 18s; }
-.leaf-3 { left: 50%; animation-delay: -10s; animation-duration: 20s; }
-.leaf-4 { left: 70%; animation-delay: -3s; animation-duration: 17s; }
-.leaf-5 { left: 90%; animation-delay: -7s; animation-duration: 16s; }
+.speed-line-1 { left: 10%; animation-delay: 0s; animation-duration: 2s; }
+.speed-line-2 { left: 30%; animation-delay: -0.5s; animation-duration: 2.5s; }
+.speed-line-3 { left: 50%; animation-delay: -1s; animation-duration: 3s; }
+.speed-line-4 { left: 70%; animation-delay: -1.5s; animation-duration: 2.3s; }
+.speed-line-5 { left: 90%; animation-delay: -2s; animation-duration: 2.8s; }
 
-@keyframes leafFall {
+@keyframes speedFall {
     0% {
-        top: -20px;
-        transform: rotate(0deg) translateX(0);
+        transform: translateY(-100px);
         opacity: 0;
     }
     10% {
-        opacity: 0.6;
+        opacity: 1;
     }
     90% {
-        opacity: 0.6;
+        opacity: 1;
     }
     100% {
-        top: 100%;
-        transform: rotate(720deg) translateX(100px);
+        transform: translateY(100vh);
         opacity: 0;
     }
 }
@@ -256,7 +348,7 @@ body::before {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+    background: radial-gradient(circle at 20% 50%, rgba(249, 124, 0, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
 }
 
@@ -272,7 +364,7 @@ body::before {
 }
 
 /* ============================================
-   Navigation - Headband Style
+   Navigation - Capsule Corp Style
    ============================================ */
 .navbar {
     position: fixed;
@@ -283,7 +375,7 @@ body::before {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
-    border-bottom: 3px solid var(--color-naruto-orange);
+    border-bottom: 3px solid var(--color-goku-orange);
     transition: var(--transition-base);
 }
 
@@ -293,14 +385,14 @@ body::before {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 80px;
     height: 3px;
-    background: var(--color-naruto-orange);
-    box-shadow: 0 0 10px var(--color-naruto-orange);
+    background: var(--gradient-goku);
+    box-shadow: 0 0 15px var(--color-goku-orange);
 }
 
 .navbar.scrolled {
-    background: rgba(26, 26, 46, 0.98);
+    background: rgba(10, 10, 26, 0.98);
     box-shadow: var(--shadow-md);
 }
 
@@ -321,18 +413,18 @@ body::before {
 .logo-text {
     font-size: 1.8rem;
     font-weight: 900;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     transition: var(--transition-base);
     letter-spacing: 2px;
-    text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 .nav-logo:hover .logo-text {
     transform: scale(1.1);
-    filter: drop-shadow(0 0 10px var(--color-naruto-orange));
+    filter: drop-shadow(0 0 15px var(--color-saiyan-gold));
 }
 
 .nav-menu {
@@ -354,12 +446,12 @@ body::before {
 }
 
 .nav-link::before {
-    content: '✦';
+    content: '⚡';
     position: absolute;
     left: -15px;
     opacity: 0;
     transition: var(--transition-fast);
-    color: var(--color-naruto-orange);
+    color: var(--color-saiyan-gold);
 }
 
 .nav-link::after {
@@ -369,13 +461,13 @@ body::before {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     transition: var(--transition-base);
-    box-shadow: 0 0 10px var(--color-naruto-orange);
+    box-shadow: 0 0 10px var(--color-saiyan-gold);
 }
 
 .nav-link:hover {
-    color: var(--color-naruto-orange);
+    color: var(--color-saiyan-gold);
 }
 
 .nav-link:hover::before {
@@ -400,14 +492,14 @@ body::before {
 .nav-toggle span {
     width: 25px;
     height: 3px;
-    background: var(--color-naruto-orange);
+    background: var(--color-goku-orange);
     border-radius: var(--radius-full);
     transition: var(--transition-base);
-    box-shadow: 0 0 5px var(--color-naruto-orange);
+    box-shadow: 0 0 5px var(--color-goku-orange);
 }
 
 /* ============================================
-   Hero Section - Ninja Way
+   Hero Section - Saiyan Power
    ============================================ */
 .hero {
     min-height: 100vh;
@@ -420,7 +512,7 @@ body::before {
 }
 
 .hero::after {
-    content: '忍道';
+    content: '超';
     position: absolute;
     bottom: 10%;
     right: 5%;
@@ -429,7 +521,7 @@ body::before {
     font-weight: 900;
     pointer-events: none;
     font-family: var(--font-japanese);
-    color: var(--color-naruto-orange);
+    color: var(--color-saiyan-gold);
 }
 
 .hero-content {
@@ -458,7 +550,7 @@ body::before {
 
 .greeting {
     font-size: 1.2rem;
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
     margin-bottom: var(--spacing-xs);
     font-weight: 600;
     letter-spacing: 2px;
@@ -476,11 +568,11 @@ body::before {
 
 .name-line {
     display: block;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(255, 107, 0, 0.5));
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
 }
 
 .name-line:last-child {
@@ -515,7 +607,7 @@ body::before {
 }
 
 .title-separator {
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
 }
 
 .hero-description {
@@ -548,7 +640,7 @@ body::before {
 }
 
 .btn-primary {
-    background: var(--gradient-naruto);
+    background: var(--gradient-goku);
     color: white;
     box-shadow: var(--shadow-md);
     border: 2px solid transparent;
@@ -571,23 +663,23 @@ body::before {
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--color-naruto-orange);
+    box-shadow: var(--shadow-super-saiyan);
+    border-color: var(--color-saiyan-gold);
 }
 
 .btn-secondary {
     background: transparent;
-    color: var(--color-naruto-orange);
-    border: 2px solid var(--color-naruto-orange);
+    color: var(--color-goku-orange);
+    border: 2px solid var(--color-goku-orange);
 }
 
 .btn-secondary:hover {
-    background: var(--color-naruto-orange);
+    background: var(--color-goku-orange);
     color: white;
-    box-shadow: var(--shadow-chakra);
+    box-shadow: var(--shadow-ki);
 }
 
-/* Hero Visual - Rasengan Style */
+/* Hero Visual - Super Saiyan Aura */
 .hero-visual {
     display: flex;
     justify-content: center;
@@ -612,9 +704,9 @@ body::before {
     height: 300px;
 }
 
-.avatar-ring,
-.avatar-ring-2,
-.avatar-ring-3 {
+.aura-ring,
+.aura-ring-2,
+.aura-ring-3 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -624,31 +716,31 @@ body::before {
     animation: rotate 8s linear infinite;
 }
 
-.avatar-ring {
+.aura-ring {
     width: 100%;
     height: 100%;
-    border-top-color: var(--color-naruto-orange);
-    border-right-color: var(--color-chakra-blue);
-    box-shadow: 0 0 20px var(--color-naruto-orange);
+    border-top-color: var(--color-saiyan-gold);
+    border-right-color: var(--color-goku-orange);
+    box-shadow: 0 0 30px var(--color-saiyan-gold);
 }
 
-.avatar-ring-2 {
+.aura-ring-2 {
     width: 80%;
     height: 80%;
-    border-bottom-color: var(--color-chakra-blue);
-    border-left-color: var(--color-konoha-green);
+    border-bottom-color: var(--color-ki-blue);
+    border-left-color: var(--color-vegeta-blue);
     animation-direction: reverse;
     animation-duration: 10s;
-    box-shadow: 0 0 15px var(--color-chakra-blue);
+    box-shadow: 0 0 20px var(--color-ki-blue);
 }
 
-.avatar-ring-3 {
+.aura-ring-3 {
     width: 60%;
     height: 60%;
-    border-top-color: var(--color-konoha-green);
-    border-right-color: var(--color-naruto-orange);
+    border-top-color: var(--color-goku-orange);
+    border-right-color: var(--color-saiyan-gold);
     animation-duration: 6s;
-    box-shadow: 0 0 10px var(--color-konoha-green);
+    box-shadow: 0 0 15px var(--color-goku-orange);
 }
 
 @keyframes rotate {
@@ -667,36 +759,36 @@ body::before {
     transform: translate(-50%, -50%);
     width: 60%;
     height: 60%;
-    background: var(--gradient-rasengan);
+    background: var(--gradient-super-saiyan);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-chakra), inset 0 0 30px rgba(255,255,255,0.3);
-    animation: rasenganPulse 3s ease-in-out infinite;
+    box-shadow: var(--shadow-super-saiyan), inset 0 0 30px rgba(255,255,255,0.3);
+    animation: superSaiyanPulse 2s ease-in-out infinite;
 }
 
-@keyframes rasenganPulse {
+@keyframes superSaiyanPulse {
     0%, 100% {
-        box-shadow: var(--shadow-chakra), inset 0 0 30px rgba(255,255,255,0.3);
+        box-shadow: var(--shadow-super-saiyan), inset 0 0 30px rgba(255,255,255,0.3);
     }
     50% {
-        box-shadow: 0 0 40px var(--color-chakra-blue), inset 0 0 50px rgba(255,255,255,0.5);
+        box-shadow: 0 0 50px var(--color-saiyan-gold), inset 0 0 50px rgba(255,255,255,0.5);
     }
 }
 
 .avatar-icon {
     font-size: 4rem;
-    animation: pulse 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px var(--color-chakra-blue));
+    animation: powerUp 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px var(--color-saiyan-gold));
 }
 
-@keyframes pulse {
+@keyframes powerUp {
     0%, 100% {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
 }
 
@@ -710,7 +802,7 @@ body::before {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-xs);
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
     font-size: 0.9rem;
     animation: bounce 2s infinite;
     text-transform: uppercase;
@@ -730,21 +822,21 @@ body::before {
 .scroll-arrow {
     width: 20px;
     height: 20px;
-    border-right: 2px solid var(--color-naruto-orange);
-    border-bottom: 2px solid var(--color-naruto-orange);
+    border-right: 2px solid var(--color-goku-orange);
+    border-bottom: 2px solid var(--color-goku-orange);
     transform: rotate(45deg);
-    box-shadow: 0 0 10px var(--color-naruto-orange);
+    box-shadow: 0 0 10px var(--color-goku-orange);
 }
 
 /* ============================================
-   Section Titles - Ninja Scroll Style
+   Section Titles - Z Fighter Style
    ============================================ */
 .section-title {
     font-size: 2.8rem;
     text-align: center;
     margin-bottom: var(--spacing-xl);
     position: relative;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -754,14 +846,14 @@ body::before {
 }
 
 .section-title::after {
-    content: '🍥';
+    content: '🐉';
     position: absolute;
     top: -20px;
     right: -40px;
     font-size: 2rem;
     -webkit-text-fill-color: initial;
-    animation: sway 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px var(--color-naruto-orange));
+    animation: dragonFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px var(--color-saiyan-gold));
 }
 
 .section-title::before {
@@ -772,25 +864,25 @@ body::before {
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: var(--gradient-naruto);
-    box-shadow: 0 0 10px var(--color-naruto-orange);
+    background: var(--gradient-super-saiyan);
+    box-shadow: 0 0 10px var(--color-saiyan-gold);
 }
 
-@keyframes sway {
+@keyframes dragonFloat {
     0%, 100% {
-        transform: rotate(-10deg);
+        transform: translateY(0) rotate(-10deg);
     }
     50% {
-        transform: rotate(10deg);
+        transform: translateY(-10px) rotate(10deg);
     }
 }
 
 /* ============================================
-   About Section - Ninja Info
+   About Section - Fighter Profile
    ============================================ */
 .about {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-nebula);
 }
 
 .about-content {
@@ -807,7 +899,7 @@ body::before {
 }
 
 .about-text strong {
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
 }
 
 .about-stats {
@@ -822,25 +914,25 @@ body::before {
     padding: var(--spacing-md);
     background: var(--glass-bg);
     border-radius: var(--radius-lg);
-    border: 2px solid var(--color-naruto-orange);
+    border: 2px solid var(--color-goku-orange);
     box-shadow: var(--shadow-md);
     transition: var(--transition-base);
 }
 
 .stat-item:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-super-saiyan);
 }
 
 .stat-number {
     display: block;
     font-size: 2.2rem;
     font-weight: 900;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 .stat-label {
@@ -851,27 +943,26 @@ body::before {
     font-weight: 600;
 }
 
-/* Code Window - Ninja Scroll Style */
+/* Code Window - Scouter Style */
 .code-window {
     background: #0d1117;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-xl);
     animation: float 6s ease-in-out infinite;
-    border: 2px solid var(--color-naruto-orange);
+    border: 2px solid var(--color-goku-orange);
     position: relative;
 }
 
 .code-window::before {
-    content: '忍';
+    content: 'Z';
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 3rem;
     opacity: 0.1;
     font-weight: 900;
-    font-family: var(--font-japanese);
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
 }
 
 @keyframes float {
@@ -887,12 +978,12 @@ body::before {
     display: flex;
     align-items: center;
     padding: var(--spacing-sm);
-    background: var(--color-naruto-orange-dark);
+    background: var(--color-goku-orange-dark);
     position: relative;
 }
 
 .window-header::after {
-    content: 'NINJA CODE';
+    content: 'SCOUTER';
     position: absolute;
     right: 10px;
     font-size: 0.7rem;
@@ -943,15 +1034,15 @@ body::before {
 .comment { color: #6272a4; font-style: italic; }
 
 /* ============================================
-   Experience Section - Mission Log
+   Experience Section - Battle History
    ============================================ */
 .experience {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-primary);
+    background: var(--color-bg-space);
 }
 
 .experience::before {
-    content: '任務';
+    content: 'Z';
     position: absolute;
     top: 10%;
     left: 5%;
@@ -959,8 +1050,7 @@ body::before {
     opacity: 0.03;
     font-weight: 900;
     pointer-events: none;
-    font-family: var(--font-japanese);
-    color: var(--color-konoha-green);
+    color: var(--color-vegeta-blue);
 }
 
 .timeline {
@@ -976,9 +1066,9 @@ body::before {
     top: 0;
     width: 4px;
     height: 100%;
-    background: var(--gradient-naruto);
+    background: var(--gradient-goku);
     border-radius: var(--radius-full);
-    box-shadow: 0 0 10px var(--color-naruto-orange);
+    box-shadow: 0 0 10px var(--color-goku-orange);
 }
 
 .timeline-item {
@@ -993,17 +1083,17 @@ body::before {
     top: 0;
     width: 23px;
     height: 23px;
-    background: var(--color-bg-primary);
-    border: 3px solid var(--color-naruto-orange);
+    background: var(--color-bg-space);
+    border: 3px solid var(--color-goku-orange);
     border-radius: 50%;
-    box-shadow: 0 0 15px var(--color-naruto-orange);
+    box-shadow: 0 0 15px var(--color-goku-orange);
     transition: var(--transition-base);
 }
 
 .timeline-item:hover .timeline-marker {
-    background: var(--color-naruto-orange);
+    background: var(--color-goku-orange);
     transform: scale(1.3);
-    box-shadow: 0 0 25px var(--color-naruto-orange);
+    box-shadow: 0 0 25px var(--color-goku-orange);
 }
 
 .timeline-content {
@@ -1018,7 +1108,7 @@ body::before {
 }
 
 .timeline-content::before {
-    content: '📜';
+    content: '⭐';
     position: absolute;
     top: -10px;
     right: -10px;
@@ -1028,7 +1118,7 @@ body::before {
 
 .timeline-content:hover {
     transform: translateX(10px);
-    border-color: var(--color-naruto-orange);
+    border-color: var(--color-goku-orange);
     box-shadow: var(--shadow-lg);
 }
 
@@ -1046,7 +1136,7 @@ body::before {
 .timeline-company {
     display: inline-block;
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--gradient-konoha);
+    background: var(--gradient-vegeta);
     color: white;
     border-radius: var(--radius-full);
     font-size: 0.85rem;
@@ -1059,7 +1149,7 @@ body::before {
 .timeline-location {
     display: block;
     font-size: 0.9rem;
-    color: var(--color-chakra-blue);
+    color: var(--color-ki-blue);
     margin-bottom: var(--spacing-xs);
     font-weight: 600;
 }
@@ -1071,15 +1161,15 @@ body::before {
 }
 
 /* ============================================
-   Skills Section - Jutsu Arsenal
+   Skills Section - Attack Techniques
    ============================================ */
 .skills {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-nebula);
 }
 
 .skills::before {
-    content: '術';
+    content: '気';
     position: absolute;
     bottom: 10%;
     right: 5%;
@@ -1088,7 +1178,7 @@ body::before {
     font-weight: 900;
     pointer-events: none;
     font-family: var(--font-japanese);
-    color: var(--color-chakra-blue);
+    color: var(--color-ki-blue);
 }
 
 .skills-grid {
@@ -1116,7 +1206,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     transform: scaleX(0);
     transition: var(--transition-base);
 }
@@ -1127,14 +1217,14 @@ body::before {
 
 .skill-category:hover {
     transform: translateY(-5px);
-    border-color: var(--color-naruto-orange);
-    box-shadow: var(--shadow-lg);
+    border-color: var(--color-saiyan-gold);
+    box-shadow: var(--shadow-super-saiyan);
 }
 
 .skill-icon {
     font-size: 2.5rem;
     margin-bottom: var(--spacing-sm);
-    filter: drop-shadow(0 0 10px var(--color-naruto-orange));
+    filter: drop-shadow(0 0 10px var(--color-saiyan-gold));
 }
 
 .skill-category h3 {
@@ -1154,7 +1244,7 @@ body::before {
 
 .skill-tag {
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--color-bg-tertiary);
+    background: var(--color-bg-galaxy);
     border-radius: var(--radius-full);
     font-size: 0.85rem;
     color: var(--color-text-secondary);
@@ -1164,11 +1254,11 @@ body::before {
 }
 
 .skill-tag:hover {
-    background: var(--color-naruto-orange);
+    background: var(--color-goku-orange);
     color: white;
     transform: scale(1.1);
-    border-color: var(--color-naruto-orange);
-    box-shadow: 0 0 15px var(--color-naruto-orange);
+    border-color: var(--color-goku-orange);
+    box-shadow: 0 0 15px var(--color-goku-orange);
 }
 
 /* ============================================
@@ -1176,7 +1266,7 @@ body::before {
    ============================================ */
 .projects {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-primary);
+    background: var(--color-bg-space);
 }
 
 .projects-grid {
@@ -1204,25 +1294,25 @@ body::before {
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--gradient-naruto);
+    background: var(--gradient-super-saiyan);
     transform: scaleX(0);
     transition: var(--transition-base);
 }
 
 .project-card::after {
-    content: '🍥';
+    content: '🐉';
     position: absolute;
     bottom: 10px;
     right: 10px;
     font-size: 3rem;
     opacity: 0.1;
-    filter: drop-shadow(0 0 10px var(--color-naruto-orange));
+    filter: drop-shadow(0 0 10px var(--color-saiyan-gold));
 }
 
 .project-card:hover {
     transform: translateY(-5px) scale(1.02);
-    border-color: var(--color-naruto-orange);
-    box-shadow: var(--shadow-lg);
+    border-color: var(--color-saiyan-gold);
+    box-shadow: var(--shadow-super-saiyan);
 }
 
 .project-card:hover::before {
@@ -1232,7 +1322,7 @@ body::before {
 .project-icon {
     font-size: 3.5rem;
     margin-bottom: var(--spacing-sm);
-    filter: drop-shadow(0 0 15px var(--color-chakra-blue));
+    filter: drop-shadow(0 0 15px var(--color-ki-blue));
 }
 
 .project-card h3 {
@@ -1260,17 +1350,17 @@ body::before {
 
 .project-tech span {
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--color-bg-tertiary);
+    background: var(--color-bg-galaxy);
     border-radius: var(--radius-full);
     font-size: 0.8rem;
-    color: var(--color-chakra-blue);
+    color: var(--color-ki-blue);
     font-weight: 600;
-    border: 1px solid var(--color-chakra-blue);
+    border: 1px solid var(--color-ki-blue);
 }
 
 .project-link {
     display: inline-block;
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
     text-decoration: none;
     font-weight: 700;
     transition: var(--transition-fast);
@@ -1280,16 +1370,16 @@ body::before {
 }
 
 .project-link:hover {
-    color: var(--color-chakra-blue);
-    text-shadow: 0 0 10px var(--color-chakra-blue);
+    color: var(--color-ki-blue);
+    text-shadow: 0 0 10px var(--color-ki-blue);
 }
 
 /* ============================================
-   Contact Section - Summon Scroll
+   Contact Section - Summon Z Fighters
    ============================================ */
 .contact {
     padding: var(--spacing-xl) 0;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-nebula);
 }
 
 .contact-content {
@@ -1327,7 +1417,7 @@ body::before {
 }
 
 .contact-card::before {
-    content: '📯';
+    content: '📡';
     position: absolute;
     top: -15px;
     left: 50%;
@@ -1344,14 +1434,14 @@ body::before {
 
 .contact-card:hover {
     transform: translateY(-5px);
-    border-color: var(--color-naruto-orange);
+    border-color: var(--color-goku-orange);
     box-shadow: var(--shadow-lg);
 }
 
 .contact-icon {
     font-size: 3rem;
     margin-bottom: var(--spacing-xs);
-    filter: drop-shadow(0 0 15px var(--color-naruto-orange));
+    filter: drop-shadow(0 0 15px var(--color-goku-orange));
 }
 
 .contact-label {
@@ -1370,20 +1460,20 @@ body::before {
 }
 
 /* ============================================
-   Footer - Hokage Monument Style
+   Footer - Capsule Corp Style
    ============================================ */
 .footer {
     padding: var(--spacing-md) 0;
     text-align: center;
-    background: var(--color-bg-primary);
+    background: var(--color-bg-space);
     color: var(--color-text-muted);
     font-size: 0.9rem;
-    border-top: 3px solid var(--color-naruto-orange);
+    border-top: 3px solid var(--color-goku-orange);
     position: relative;
 }
 
 .footer::before {
-    content: '火';
+    content: 'Z';
     position: absolute;
     top: -30px;
     left: 50%;
@@ -1391,8 +1481,7 @@ body::before {
     font-size: 4rem;
     opacity: 0.1;
     font-weight: 900;
-    font-family: var(--font-japanese);
-    color: var(--color-naruto-orange);
+    color: var(--color-goku-orange);
 }
 
 /* ============================================
@@ -1463,16 +1552,20 @@ body::before {
 /* Mobile - 768px and below */
 @media (max-width: 768px) {
     /* Reduce background animations for performance */
-    .shuriken {
-        opacity: 0.05;
+    .star {
+        opacity: 0.3;
     }
     
-    .chakra-orb {
+    .dragon-ball {
+        opacity: 0.5;
+    }
+    
+    .ki-orb {
         opacity: 0.08;
     }
     
-    .leaf {
-        opacity: 0.3;
+    .speed-line {
+        opacity: 0.2;
     }
     
     body::before,
@@ -1491,12 +1584,12 @@ body::before {
         width: 80%;
         max-width: 300px;
         height: 100vh;
-        background: var(--color-bg-primary);
+        background: var(--color-bg-space);
         flex-direction: column;
         padding: var(--spacing-xl) var(--spacing-md);
         box-shadow: var(--shadow-xl);
         transition: var(--transition-base);
-        border-left: 3px solid var(--color-naruto-orange);
+        border-left: 3px solid var(--color-goku-orange);
         z-index: 999;
     }
     
@@ -1507,7 +1600,7 @@ body::before {
     .nav-toggle {
         display: flex;
         z-index: 1001;
-        background: var(--color-bg-primary);
+        background: var(--color-bg-space);
         padding: var(--spacing-xs);
         border-radius: var(--radius-sm);
     }
@@ -1785,9 +1878,9 @@ body::before {
         height: 140px;
     }
     
-    .avatar-ring,
-    .avatar-ring-2,
-    .avatar-ring-3 {
+    .aura-ring,
+    .aura-ring-2,
+    .aura-ring-3 {
         border-width: 2px;
     }
     
