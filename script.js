@@ -203,16 +203,19 @@ const game = {
         console.log('startFight called');
         const arena = document.getElementById('fightingArena');
         const actionBtn = document.getElementById('actionButton');
-        const storyContent = document.getElementById('storyContent');
         
         if (arena) {
             console.log('Arena found, showing');
             arena.style.display = 'block';
         } else {
             console.error('Arena not found!');
+            return;
         }
         if (actionBtn) actionBtn.style.display = 'none';
-        if (storyContent) storyContent.style.display = 'none';
+        
+        // Hide the story content section
+        const storySection = document.querySelector('.story-content');
+        if (storySection) storySection.style.display = 'none';
         
         const chapter = this.chapters[this.currentChapter];
         console.log('Starting fight with chapter:', chapter.title);
@@ -256,11 +259,11 @@ const game = {
         this.switchScreen('story');
         const arena = document.getElementById('fightingArena');
         const actionBtn = document.getElementById('actionButton');
-        const storyContent = document.getElementById('storyContent');
+        const storySection = document.querySelector('.story-content');
         
         if (arena) arena.style.display = 'none';
         if (actionBtn) actionBtn.style.display = 'inline-flex';
-        if (storyContent) storyContent.style.display = 'block';
+        if (storySection) storySection.style.display = 'block';
         
         this.loadChapter(this.currentChapter + 1);
     },
