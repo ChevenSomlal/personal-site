@@ -200,15 +200,22 @@ const game = {
     
     // Fighting Game System
     startFight() {
+        console.log('startFight called');
         const arena = document.getElementById('fightingArena');
         const actionBtn = document.getElementById('actionButton');
         const storyContent = document.getElementById('storyContent');
         
-        if (arena) arena.style.display = 'block';
+        if (arena) {
+            console.log('Arena found, showing');
+            arena.style.display = 'block';
+        } else {
+            console.error('Arena not found!');
+        }
         if (actionBtn) actionBtn.style.display = 'none';
         if (storyContent) storyContent.style.display = 'none';
         
         const chapter = this.chapters[this.currentChapter];
+        console.log('Starting fight with chapter:', chapter.title);
         this.fightGame = new FightingGame(chapter, () => this.onFightVictory(), () => this.onFightDefeat());
     },
     
@@ -313,12 +320,20 @@ const game = {
 
 class FightingGame {
     constructor(chapter, onVictory, onDefeat) {
+        console.log('FightingGame constructor called');
         this.canvas = document.getElementById('fightCanvas');
         if (!this.canvas) {
             console.error('Fight canvas not found!');
+            this.active = false;
             return;
         }
-        this.ctx = this.canvas.getContext('2d');
+        try {
+            this.ctx = this.canvas.getContext('2d');
+        } catch(e) {
+            console.error('Failed to get canvas context:', e);
+            this.active = false;
+            return;
+        }
         this.chapter = chapter;
         this.onVictory = onVictory;
         this.onDefeat = onDefeat;
@@ -329,6 +344,7 @@ class FightingGame {
         this.lastTime = 0;
         
         console.log('FightingGame initialized for chapter:', chapter.title);
+        console.log('Canvas:', this.canvas.width, 'x', this.canvas.height);
         
         // Player
         this.player = {
@@ -398,9 +414,13 @@ class FightingGame {
     
     init() {
         console.log('FightingGame.init() called');
-        this.updateHealthBars();
-        this.resizeCanvas();
-        this.gameLoop(0);
+        
+        // Wait for DOM to be ready
+        setTimeout(() => {
+            this.updateHealthBars();
+            this.resizeCanvas();
+            this.gameLoop(0);
+        }, 100);
         
         // Timer countdown
         this.timerInterval = setInterval(() => {
@@ -416,11 +436,16 @@ class FightingGame {
     }
     
     resizeCanvas() {
-        const container = this.canvas.parentElement;
-        if (container) {
-            const rect = container.getBoundingClientRect();
-            this.canvas.width = rect.width;
-            this.canvas.height = 400;
+        try {
+            const container = this.canvas.parentElement;
+            if (container) {
+                const rect = container.getBoundingClientRect();
+                this.canvas.width = rect.width || 800;
+                this.canvas.height = 400;
+                console.log('Canvas resized:', this.canvas.width, 'x', this.canvas.height);
+            }
+        } catch(e) {
+            console.error('Error resizing canvas:', e);
         }
     }
     
@@ -593,10 +618,15 @@ class FightingGame {
         const playerKiPercent = (this.player.ki / this.player.maxKi) * 100;
         const enemyKiPercent = (this.enemy.ki / this.enemy.maxKi) * 100;
         
-        document.getElementById('playerHealthBar').style.width = `${playerHealthPercent}%`;
-        document.getElementById('enemyHealthBar').style.width = `${enemyHealthPercent}%`;
-        document.getElementById('playerKiBar').style.width = `${playerKiPercent}%`;
-        document.getElementById('enemyKiBar').style.width = `${enemyKiPercent}%`;
+        const playerHealthBar = document.getElementById('playerHealthBar');
+        const enemyHealthBar = document.getElementById('enemyHealthBar');
+        const playerKiBar = document.getElementById('playerKiBar');
+        const enemyKiBar = document.getElementById('enemyKiBar');
+        
+        if (playerHealthBar) playerHealthBar.style.width = `${playerHealthPercent}%`;
+        if (enemyHealthBar) enemyHealthBar.style.width = `${enemyHealthPercent}%`;
+        if (playerKiBar) playerKiBar.style.width = `${playerKiPercent}%`;
+        if (enemyKiBar) enemyKiBar.style.width = `${enemyKiPercent}%`;
     }
     
     // AI Logic
