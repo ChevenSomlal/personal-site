@@ -1,5 +1,5 @@
 /* ============================================
-   CSS Custom Properties - Dragon Ball Z Theme
+   DBZ Interactive Story Game Styles
    ============================================ */
 :root {
     /* DBZ Color Palette */
@@ -18,10 +18,6 @@
     --color-ki-blue: #00d4ff;
     --color-ki-green: #00ff88;
     --color-ki-purple: #9b59b6;
-    --color-ki-red: #ff4444;
-    
-    --color-dragon-ball: #ff6b00;
-    --color-dragon-ball-glow: #ff8c00;
     
     --color-bg-space: #0a0a1a;
     --color-bg-nebula: #1a1a3e;
@@ -31,30 +27,21 @@
     --color-text-secondary: #e8e8e8;
     --color-text-muted: #a0a0a0;
     
-    --color-accent-primary: #ffd700;
-    --color-accent-secondary: #f97c00;
-    --color-accent-tertiary: #00d4ff;
+    --color-health: #ff4444;
+    --color-energy: #00d4ff;
+    --color-success: #00ff88;
     
     /* Gradients */
     --gradient-goku: linear-gradient(135deg, #f97c00 0%, #ff9500 100%);
     --gradient-vegeta: linear-gradient(135deg, #1e3a8a 0%, #3b5998 100%);
     --gradient-super-saiyan: linear-gradient(135deg, #ffd700 0%, #fff59d 50%, #ffffff 100%);
-    --gradient-super-saiyan-blue: linear-gradient(135deg, #00bfff 0%, #00d4ff 50%, #ffffff 100%);
     --gradient-ki: linear-gradient(135deg, #00d4ff 0%, #00ff88 50%, #ffd700 100%);
-    --gradient-dragon-ball: linear-gradient(135deg, #ff6b00 0%, #ff8c00 50%, #ffd700 100%);
     --gradient-space: linear-gradient(180deg, #0a0a1a 0%, #1a1a3e 50%, #0f0f2d 100%);
     
-    /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(255, 215, 0, 0.2);
-    --shadow-md: 0 4px 16px rgba(255, 215, 0, 0.3);
-    --shadow-lg: 0 8px 32px rgba(255, 215, 0, 0.4);
-    --shadow-xl: 0 12px 48px rgba(255, 215, 0, 0.5);
+    /* Effects */
     --shadow-ki: 0 0 20px rgba(0, 212, 255, 0.6);
     --shadow-super-saiyan: 0 0 30px rgba(255, 215, 0, 0.8);
-    
-    /* Glassmorphism - Space Theme */
     --glass-bg: rgba(10, 10, 26, 0.85);
-    --glass-border: rgba(255, 215, 0, 0.3);
     --glass-blur: blur(16px);
     
     /* Spacing */
@@ -83,11 +70,9 @@
 }
 
 /* ============================================
-   Reset & Base Styles
+   Reset & Base
    ============================================ */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -95,7 +80,6 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
 }
 
 body {
@@ -104,26 +88,11 @@ body {
     background: var(--color-bg-space);
     line-height: 1.6;
     overflow-x: hidden;
-}
-
-/* Japanese Background Text - Kame Symbol */
-body::before {
-    content: '亀';
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 80vh;
-    opacity: 0.03;
-    font-weight: 900;
-    pointer-events: none;
-    z-index: 0;
-    font-family: var(--font-japanese);
-    color: var(--color-goku-orange);
+    min-height: 100vh;
 }
 
 /* ============================================
-   Animated Background - Space Battle Theme
+   Background Animation
    ============================================ */
 .bg-animation {
     position: fixed;
@@ -132,11 +101,9 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    overflow: hidden;
     background: var(--gradient-space);
 }
 
-/* Stars Field */
 .stars-field {
     position: absolute;
     width: 100%;
@@ -153,7 +120,7 @@ body::before {
     animation: twinkle 3s ease-in-out infinite;
 }
 
-.star-1 { top: 10%; left: 10%; animation-delay: 0s; }
+.star-1 { top: 10%; left: 10%; }
 .star-2 { top: 20%; right: 15%; animation-delay: -0.5s; }
 .star-3 { bottom: 30%; left: 20%; animation-delay: -1s; }
 .star-4 { bottom: 15%; right: 25%; animation-delay: -1.5s; }
@@ -163,22 +130,15 @@ body::before {
 .star-8 { top: 70%; left: 30%; animation-delay: -0.8s; }
 
 @keyframes twinkle {
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.3);
-    }
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
 }
 
-/* Dragon Balls */
 .dragon-ball {
     position: absolute;
     border-radius: 50%;
-    background: var(--gradient-dragon-ball);
-    box-shadow: 0 0 20px var(--color-dragon-ball-glow);
+    background: linear-gradient(135deg, #ff6b00, #ff8c00, #ffd700);
+    box-shadow: 0 0 20px #ff8c00;
     animation: dragonBallFloat 8s ease-in-out infinite;
 }
 
@@ -188,61 +148,20 @@ body::before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: var(--color-goku-orange-dark);
+    color: #c95a00;
     font-size: 1.2rem;
     font-weight: 900;
 }
 
-.dragon-ball-1 {
-    width: 40px;
-    height: 40px;
-    top: 15%;
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.dragon-ball-2 {
-    width: 35px;
-    height: 35px;
-    top: 25%;
-    right: 15%;
-    animation-delay: -2s;
-}
-
-.dragon-ball-3 {
-    width: 30px;
-    height: 30px;
-    bottom: 35%;
-    left: 20%;
-    animation-delay: -4s;
-}
-
-.dragon-ball-4 {
-    width: 38px;
-    height: 38px;
-    bottom: 20%;
-    right: 25%;
-    animation-delay: -1s;
-}
-
-.dragon-ball-5 {
-    width: 32px;
-    height: 32px;
-    top: 60%;
-    right: 40%;
-    animation-delay: -3s;
-}
+.dragon-ball-1 { width: 40px; height: 40px; top: 15%; left: 10%; }
+.dragon-ball-2 { width: 35px; height: 35px; top: 25%; right: 15%; animation-delay: -2s; }
+.dragon-ball-3 { width: 30px; height: 30px; bottom: 35%; left: 20%; animation-delay: -4s; }
 
 @keyframes dragonBallFloat {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-20px) rotate(180deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
 }
 
-/* Ki Energy Orbs */
 .ki-orb {
     position: absolute;
     border-radius: 50%;
@@ -251,462 +170,230 @@ body::before {
     animation: kiPulse 6s ease-in-out infinite;
 }
 
-.ki-orb-1 {
-    width: 250px;
-    height: 250px;
-    top: 10%;
-    right: 5%;
-    animation-delay: 0s;
-}
-
-.ki-orb-2 {
-    width: 180px;
-    height: 180px;
-    bottom: 25%;
-    left: 10%;
-    animation-delay: -3s;
-}
-
-.ki-orb-3 {
-    width: 120px;
-    height: 120px;
-    top: 55%;
-    right: 35%;
-    animation-delay: -1.5s;
-}
+.ki-orb-1 { width: 250px; height: 250px; top: 10%; right: 5%; }
+.ki-orb-2 { width: 180px; height: 180px; bottom: 25%; left: 10%; animation-delay: -3s; }
 
 @keyframes kiPulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.15;
-    }
-    50% {
-        transform: scale(1.3);
-        opacity: 0.25;
-    }
+    0%, 100% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.3); opacity: 0.25; }
 }
 
-/* Super Saiyan Aura */
 .saiyan-aura {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
     animation: auraPulse 4s ease-in-out infinite;
 }
 
 @keyframes auraPulse {
-    0%, 100% {
-        opacity: 0.5;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-/* Speed Lines - DBZ Style */
-.speed-lines {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.speed-line {
-    position: absolute;
-    width: 2px;
-    height: 100px;
-    background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-    animation: speedFall 3s linear infinite;
-}
-
-.speed-line-1 { left: 10%; animation-delay: 0s; animation-duration: 2s; }
-.speed-line-2 { left: 30%; animation-delay: -0.5s; animation-duration: 2.5s; }
-.speed-line-3 { left: 50%; animation-delay: -1s; animation-duration: 3s; }
-.speed-line-4 { left: 70%; animation-delay: -1.5s; animation-duration: 2.3s; }
-.speed-line-5 { left: 90%; animation-delay: -2s; animation-duration: 2.8s; }
-
-@keyframes speedFall {
-    0% {
-        transform: translateY(-100px);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-}
-
-.gradient-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(249, 124, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
 }
 
 /* ============================================
-   Container
+   Power Level Display (Top Right)
    ============================================ */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-    position: relative;
-    z-index: 1;
-}
-
-/* ============================================
-   Navigation - Capsule Corp Style
-   ============================================ */
-.navbar {
+.power-level-display {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 20px;
+    right: 20px;
     z-index: 1000;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-bottom: 3px solid var(--color-goku-orange);
-    transition: var(--transition-base);
+    border: 2px solid var(--color-goku-orange);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-super-saiyan);
+    text-align: center;
+    min-width: 150px;
 }
 
-.navbar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: var(--gradient-goku);
-    box-shadow: 0 0 15px var(--color-goku-orange);
+.power-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
 }
 
-.navbar.scrolled {
-    background: rgba(10, 10, 26, 0.98);
-    box-shadow: var(--shadow-md);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--spacing-sm) var(--spacing-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo {
-    text-decoration: none;
-    z-index: 1001;
-}
-
-.logo-text {
+.power-value {
     font-size: 1.8rem;
     font-weight: 900;
     background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    transition: var(--transition-base);
-    letter-spacing: 2px;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    margin: var(--spacing-xs) 0;
 }
 
-.nav-logo:hover .logo-text {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 15px var(--color-saiyan-gold));
-}
-
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: var(--spacing-md);
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--color-text-secondary);
+.rank-badge {
+    font-size: 0.75rem;
+    color: var(--color-ki-blue);
     font-weight: 600;
-    position: relative;
-    padding: var(--spacing-xs) 0;
-    transition: var(--transition-fast);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.9rem;
-}
-
-.nav-link::before {
-    content: '⚡';
-    position: absolute;
-    left: -15px;
-    opacity: 0;
-    transition: var(--transition-fast);
-    color: var(--color-saiyan-gold);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-super-saiyan);
-    transition: var(--transition-base);
-    box-shadow: 0 0 10px var(--color-saiyan-gold);
-}
-
-.nav-link:hover {
-    color: var(--color-saiyan-gold);
-}
-
-.nav-link:hover::before {
-    opacity: 1;
-    left: -20px;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-.nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--spacing-xs);
-}
-
-.nav-toggle span {
-    width: 25px;
-    height: 3px;
-    background: var(--color-goku-orange);
-    border-radius: var(--radius-full);
-    transition: var(--transition-base);
-    box-shadow: 0 0 5px var(--color-goku-orange);
 }
 
 /* ============================================
-   Hero Section - Saiyan Power
+   Energy Bar (Top Left)
    ============================================ */
-.hero {
+.energy-bar-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--color-ki-blue);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-ki);
+    min-width: 200px;
+}
+
+.energy-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--color-bg-galaxy);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    border: 1px solid var(--color-ki-blue);
+}
+
+.energy-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--gradient-ki);
+    transition: width var(--transition-base);
+    box-shadow: 0 0 10px var(--color-ki-blue);
+}
+
+.energy-text {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: var(--spacing-xs);
+}
+
+/* ============================================
+   Screen System
+   ============================================ */
+.screen {
+    display: none;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding: var(--spacing-xl) var(--spacing-md);
-    position: relative;
 }
 
-.hero::after {
-    content: '超';
-    position: absolute;
-    bottom: 10%;
-    right: 5%;
-    font-size: 15rem;
-    opacity: 0.05;
-    font-weight: 900;
-    pointer-events: none;
-    font-family: var(--font-japanese);
-    color: var(--color-saiyan-gold);
+.screen.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-content {
+.screen-content,
+.story-container,
+.levelup-content,
+.victory-content {
     max-width: 1200px;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
-    align-items: center;
 }
 
-.hero-text {
-    animation: slideInLeft 1s ease-out;
+/* ============================================
+   Start Screen
+   ============================================ */
+#startScreen .screen-content {
+    text-align: center;
 }
 
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.logo-container {
+    margin-bottom: var(--spacing-lg);
 }
 
-.greeting {
-    font-size: 1.2rem;
-    color: var(--color-goku-orange);
-    margin-bottom: var(--spacing-xs);
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.name {
-    font-size: 4.5rem;
-    font-weight: 900;
-    line-height: 1.1;
+.logo-dragon {
+    font-size: 5rem;
     margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(0 0 30px var(--color-saiyan-gold));
+    animation: dragonGlow 2s ease-in-out infinite;
+}
+
+@keyframes dragonGlow {
+    0%, 100% { filter: drop-shadow(0 0 30px var(--color-saiyan-gold)); }
+    50% { filter: drop-shadow(0 0 50px var(--color-goku-orange)); }
+}
+
+.game-title {
+    font-size: 3.5rem;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 3px;
-}
-
-.name-line {
-    display: block;
+    margin-bottom: var(--spacing-sm);
     background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
 }
 
-.name-line:last-child {
-    animation: textReveal 1s ease-out 0.3s both;
+.game-title .highlight {
+    background: var(--gradient-goku);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-@keyframes textReveal {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.title-wrapper {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-md);
-    flex-wrap: wrap;
+.intro-text {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--glass-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-goku-orange);
 }
 
-.title-item {
+.intro-text p {
+    margin-bottom: var(--spacing-sm);
     font-size: 1.1rem;
     color: var(--color-text-secondary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
-.title-separator {
+.intro-text .dramatic {
+    font-size: 1.3rem;
     color: var(--color-goku-orange);
-}
-
-.hero-description {
-    font-size: 1.1rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--spacing-md);
-    max-width: 500px;
-    line-height: 1.8;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--radius-md);
-    text-decoration: none;
     font-weight: 700;
-    transition: var(--transition-base);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
+    margin-top: var(--spacing-md);
 }
 
-.btn-primary {
-    background: var(--gradient-goku);
-    color: white;
-    box-shadow: var(--shadow-md);
-    border: 2px solid transparent;
-}
-
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: 0.5s;
-}
-
-.btn-primary:hover::before {
-    left: 100%;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-super-saiyan);
-    border-color: var(--color-saiyan-gold);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: var(--color-goku-orange);
-    border: 2px solid var(--color-goku-orange);
-}
-
-.btn-secondary:hover {
-    background: var(--color-goku-orange);
-    color: white;
-    box-shadow: var(--shadow-ki);
-}
-
-/* Hero Visual - Super Saiyan Aura */
-.hero-visual {
+.character-preview {
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: slideInRight 1s ease-out;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--glass-bg);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-goku-orange);
 }
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.avatar-container {
+.preview-avatar {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
 }
 
-.aura-ring,
-.aura-ring-2,
-.aura-ring-3 {
+.preview-avatar .aura-ring,
+.preview-avatar .aura-ring-2 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -716,741 +403,704 @@ body::before {
     animation: rotate 8s linear infinite;
 }
 
-.aura-ring {
+.preview-avatar .aura-ring {
     width: 100%;
     height: 100%;
     border-top-color: var(--color-saiyan-gold);
     border-right-color: var(--color-goku-orange);
-    box-shadow: 0 0 30px var(--color-saiyan-gold);
+    box-shadow: 0 0 20px var(--color-saiyan-gold);
 }
 
-.aura-ring-2 {
+.preview-avatar .aura-ring-2 {
     width: 80%;
     height: 80%;
     border-bottom-color: var(--color-ki-blue);
-    border-left-color: var(--color-vegeta-blue);
     animation-direction: reverse;
     animation-duration: 10s;
-    box-shadow: 0 0 20px var(--color-ki-blue);
-}
-
-.aura-ring-3 {
-    width: 60%;
-    height: 60%;
-    border-top-color: var(--color-goku-orange);
-    border-right-color: var(--color-saiyan-gold);
-    animation-duration: 6s;
-    box-shadow: 0 0 15px var(--color-goku-orange);
 }
 
 @keyframes rotate {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-.avatar-placeholder {
+.preview-avatar .avatar-icon {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
-    height: 60%;
-    background: var(--gradient-super-saiyan);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-super-saiyan), inset 0 0 30px rgba(255,255,255,0.3);
-    animation: superSaiyanPulse 2s ease-in-out infinite;
-}
-
-@keyframes superSaiyanPulse {
-    0%, 100% {
-        box-shadow: var(--shadow-super-saiyan), inset 0 0 30px rgba(255,255,255,0.3);
-    }
-    50% {
-        box-shadow: 0 0 50px var(--color-saiyan-gold), inset 0 0 50px rgba(255,255,255,0.5);
-    }
-}
-
-.avatar-icon {
     font-size: 4rem;
-    animation: powerUp 2s ease-in-out infinite;
     filter: drop-shadow(0 0 15px var(--color-saiyan-gold));
 }
 
-@keyframes powerUp {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
-    }
+.preview-stats {
+    text-align: left;
 }
 
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: var(--spacing-md);
-    left: 50%;
-    transform: translateX(-50%);
+.stat-row {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--color-goku-orange);
-    font-size: 0.9rem;
-    animation: bounce 2s infinite;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+}
+
+.stat-row .stat-name {
+    color: var(--color-text-muted);
     font-weight: 600;
 }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateX(-50%) translateY(0);
-    }
-    50% {
-        transform: translateX(-50%) translateY(10px);
-    }
+.stat-row .stat-value {
+    color: var(--color-text-primary);
+    font-weight: 700;
 }
 
-.scroll-arrow {
-    width: 20px;
-    height: 20px;
-    border-right: 2px solid var(--color-goku-orange);
-    border-bottom: 2px solid var(--color-goku-orange);
-    transform: rotate(45deg);
-    box-shadow: 0 0 10px var(--color-goku-orange);
-}
-
-/* ============================================
-   Section Titles - Z Fighter Style
-   ============================================ */
-.section-title {
-    font-size: 2.8rem;
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
-    position: relative;
-    background: var(--gradient-super-saiyan);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.btn-start {
+    background: var(--gradient-goku);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 1.2rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-weight: 900;
-}
-
-.section-title::after {
-    content: '🐉';
-    position: absolute;
-    top: -20px;
-    right: -40px;
-    font-size: 2rem;
-    -webkit-text-fill-color: initial;
-    animation: dragonFloat 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px var(--color-saiyan-gold));
-}
-
-.section-title::before {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: var(--gradient-super-saiyan);
-    box-shadow: 0 0 10px var(--color-saiyan-gold);
-}
-
-@keyframes dragonFloat {
-    0%, 100% {
-        transform: translateY(0) rotate(-10deg);
-    }
-    50% {
-        transform: translateY(-10px) rotate(10deg);
-    }
-}
-
-/* ============================================
-   About Section - Fighter Profile
-   ============================================ */
-.about {
-    padding: var(--spacing-xl) 0;
-    background: var(--color-bg-nebula);
-}
-
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-lg);
+    letter-spacing: 2px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
-}
-
-.about-text p {
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-text-muted);
-    line-height: 1.8;
-}
-
-.about-text strong {
-    color: var(--color-goku-orange);
-}
-
-.about-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
-}
-
-.stat-item {
-    text-align: center;
-    padding: var(--spacing-md);
-    background: var(--glass-bg);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--color-goku-orange);
+    gap: var(--spacing-sm);
     box-shadow: var(--shadow-md);
     transition: var(--transition-base);
 }
 
-.stat-item:hover {
-    transform: translateY(-5px);
+.btn-start:hover {
+    transform: translateY(-3px);
     box-shadow: var(--shadow-super-saiyan);
 }
 
-.stat-number {
+.btn-start .btn-icon {
+    font-size: 1.5rem;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* ============================================
+   Story Screen
+   ============================================ */
+.chapter-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.chapter-number {
     display: block;
-    font-size: 2.2rem;
+    font-size: 0.9rem;
+    color: var(--color-goku-orange);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.chapter-title {
+    font-size: 2.5rem;
     font-weight: 900;
     background: var(--gradient-super-saiyan);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
+    letter-spacing: 2px;
 }
 
-/* Code Window - Scouter Style */
-.code-window {
-    background: #0d1117;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-xl);
-    animation: float 6s ease-in-out infinite;
+.story-content {
+    background: var(--glass-bg);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
     border: 2px solid var(--color-goku-orange);
-    position: relative;
+    margin-bottom: var(--spacing-md);
 }
 
-.code-window::before {
-    content: 'Z';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 3rem;
-    opacity: 0.1;
-    font-weight: 900;
-    color: var(--color-goku-orange);
+.story-image {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.scene-icon {
+    font-size: 6rem;
+    filter: drop-shadow(0 0 30px var(--color-saiyan-gold));
+    animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
-.window-header {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-sm);
-    background: var(--color-goku-orange-dark);
-    position: relative;
+.story-text {
+    margin-bottom: var(--spacing-md);
 }
 
-.window-header::after {
-    content: 'SCOUTER';
-    position: absolute;
-    right: 10px;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 2px;
-}
-
-.window-dots {
-    display: flex;
-    gap: 8px;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
-
-.dot.red { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
-
-.window-title {
-    margin-left: var(--spacing-sm);
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.window-content {
-    padding: var(--spacing-md);
-    overflow-x: auto;
-}
-
-.window-content pre {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
+.narration {
+    font-size: 1.2rem;
     line-height: 1.8;
+    color: var(--color-text-secondary);
 }
 
-.window-content code {
-    color: #abb2bf;
+.story-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
 }
 
-.keyword { color: #ff79c6; }
-.class-name { color: #8be9fd; }
-.string { color: #f1fa8c; }
-.comment { color: #6272a4; font-style: italic; }
+.stat-box {
+    background: var(--color-bg-galaxy);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-goku-orange);
+    text-align: center;
+}
+
+.stat-box-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-box-value {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.story-actions {
+    text-align: center;
+}
+
+.btn-action {
+    background: var(--gradient-goku);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+}
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-super-saiyan);
+}
 
 /* ============================================
-   Experience Section - Battle History
+   Battle Arena
    ============================================ */
-.experience {
-    padding: var(--spacing-xl) 0;
+.battle-arena {
+    display: none;
+    background: var(--color-bg-galaxy);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    border: 3px solid var(--color-goku-orange);
+    margin-top: var(--spacing-md);
+}
+
+.battle-scene {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
     background: var(--color-bg-space);
+    border-radius: var(--radius-lg);
 }
 
-.experience::before {
-    content: 'Z';
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    font-size: 20rem;
-    opacity: 0.03;
-    font-weight: 900;
-    pointer-events: none;
-    color: var(--color-vegeta-blue);
+.fighter {
+    text-align: center;
+    flex: 1;
 }
 
-.timeline {
-    position: relative;
-    max-width: 800px;
+.fighter-avatar {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-xs);
+    filter: drop-shadow(0 0 20px var(--color-saiyan-gold));
+}
+
+.fighter-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.fighter-health {
+    width: 150px;
     margin: 0 auto;
 }
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 4px;
+.health-bar {
+    width: 100%;
+    height: 15px;
+    background: var(--color-bg-galaxy);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    border: 2px solid var(--color-health);
+}
+
+.health-fill {
     height: 100%;
-    background: var(--gradient-goku);
-    border-radius: var(--radius-full);
-    box-shadow: 0 0 10px var(--color-goku-orange);
+    width: 100%;
+    background: linear-gradient(90deg, var(--color-health), var(--color-goku-orange));
+    transition: width var(--transition-base);
 }
 
-.timeline-item {
-    position: relative;
-    padding-left: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
+#playerHealth {
+    background: linear-gradient(90deg, var(--color-ki-blue), var(--color-ki-green));
 }
 
-.timeline-marker {
-    position: absolute;
-    left: -10px;
-    top: 0;
-    width: 23px;
-    height: 23px;
-    background: var(--color-bg-space);
-    border: 3px solid var(--color-goku-orange);
-    border-radius: 50%;
-    box-shadow: 0 0 15px var(--color-goku-orange);
-    transition: var(--transition-base);
-}
-
-.timeline-item:hover .timeline-marker {
-    background: var(--color-goku-orange);
-    transform: scale(1.3);
-    box-shadow: 0 0 25px var(--color-goku-orange);
-}
-
-.timeline-content {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    padding: var(--spacing-md);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--glass-border);
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-base);
-    position: relative;
-}
-
-.timeline-content::before {
-    content: '⭐';
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 1.5rem;
-    opacity: 0.5;
-}
-
-.timeline-content:hover {
-    transform: translateX(10px);
-    border-color: var(--color-goku-orange);
-    box-shadow: var(--shadow-lg);
-}
-
-.timeline-header {
-    margin-bottom: var(--spacing-xs);
-}
-
-.timeline-title {
-    font-size: 1.3rem;
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-xs);
-    font-weight: 700;
-}
-
-.timeline-company {
-    display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--gradient-vegeta);
-    color: white;
-    border-radius: var(--radius-full);
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.timeline-date,
-.timeline-location {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--color-ki-blue);
-    margin-bottom: var(--spacing-xs);
-    font-weight: 600;
-}
-
-.timeline-description {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    line-height: 1.7;
-}
-
-/* ============================================
-   Skills Section - Attack Techniques
-   ============================================ */
-.skills {
-    padding: var(--spacing-xl) 0;
-    background: var(--color-bg-nebula);
-}
-
-.skills::before {
-    content: '気';
-    position: absolute;
-    bottom: 10%;
-    right: 5%;
-    font-size: 20rem;
-    opacity: 0.03;
+.vs-text {
+    font-size: 2rem;
     font-weight: 900;
-    pointer-events: none;
-    font-family: var(--font-japanese);
-    color: var(--color-ki-blue);
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-md);
-}
-
-.skill-category {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    padding: var(--spacing-md);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--glass-border);
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-base);
-    position: relative;
-    overflow: hidden;
-}
-
-.skill-category::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient-super-saiyan);
-    transform: scaleX(0);
-    transition: var(--transition-base);
-}
-
-.skill-category:hover::before {
-    transform: scaleX(1);
-}
-
-.skill-category:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-saiyan-gold);
-    box-shadow: var(--shadow-super-saiyan);
-}
-
-.skill-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-sm);
-    filter: drop-shadow(0 0 10px var(--color-saiyan-gold));
-}
-
-.skill-category h3 {
-    font-size: 1.3rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-text-primary);
+    color: var(--color-goku-orange);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    padding: 0 var(--spacing-md);
+}
+
+.battle-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.btn-battle {
+    background: var(--color-bg-space);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-goku-orange);
+    padding: var(--spacing-sm);
+    font-size: 0.9rem;
     font-weight: 700;
-}
-
-.skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
-}
-
-.skill-tag {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--color-bg-galaxy);
-    border-radius: var(--radius-full);
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    border-radius: var(--radius-md);
+    cursor: pointer;
     transition: var(--transition-fast);
-    border: 1px solid transparent;
-    font-weight: 600;
 }
 
-.skill-tag:hover {
+.btn-battle:hover {
     background: var(--color-goku-orange);
     color: white;
-    transform: scale(1.1);
-    border-color: var(--color-goku-orange);
-    box-shadow: 0 0 15px var(--color-goku-orange);
-}
-
-/* ============================================
-   Projects Section - Mission Archive
-   ============================================ */
-.projects {
-    padding: var(--spacing-xl) 0;
-    background: var(--color-bg-space);
-}
-
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-md);
-}
-
-.project-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    padding: var(--spacing-md);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--glass-border);
     box-shadow: var(--shadow-md);
-    transition: var(--transition-base);
-    position: relative;
-    overflow: hidden;
 }
 
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient-super-saiyan);
-    transform: scaleX(0);
-    transition: var(--transition-base);
-}
-
-.project-card::after {
-    content: '🐉';
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 3rem;
-    opacity: 0.1;
-    filter: drop-shadow(0 0 10px var(--color-saiyan-gold));
-}
-
-.project-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: var(--color-saiyan-gold);
-    box-shadow: var(--shadow-super-saiyan);
-}
-
-.project-card:hover::before {
-    transform: scaleX(1);
-}
-
-.project-icon {
-    font-size: 3.5rem;
-    margin-bottom: var(--spacing-sm);
-    filter: drop-shadow(0 0 15px var(--color-ki-blue));
-}
-
-.project-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: var(--spacing-xs);
-    color: var(--color-text-primary);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.project-card p {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    margin-bottom: var(--spacing-sm);
-    line-height: 1.6;
-}
-
-.project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-sm);
-}
-
-.project-tech span {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background: var(--color-bg-galaxy);
-    border-radius: var(--radius-full);
-    font-size: 0.8rem;
-    color: var(--color-ki-blue);
-    font-weight: 600;
+.battle-log {
+    background: var(--color-bg-space);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    max-height: 150px;
+    overflow-y: auto;
     border: 1px solid var(--color-ki-blue);
 }
 
-.project-link {
-    display: inline-block;
-    color: var(--color-goku-orange);
-    text-decoration: none;
-    font-weight: 700;
-    transition: var(--transition-fast);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.log-entry {
     font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid var(--color-bg-galaxy);
 }
 
-.project-link:hover {
-    color: var(--color-ki-blue);
-    text-shadow: 0 0 10px var(--color-ki-blue);
+.log-entry:last-child {
+    border-bottom: none;
+    color: var(--color-success);
+    font-weight: 700;
 }
 
 /* ============================================
-   Contact Section - Summon Z Fighters
+   Level Up Screen
    ============================================ */
-.contact {
-    padding: var(--spacing-xl) 0;
-    background: var(--color-bg-nebula);
-}
-
-.contact-content {
+.levelup-content {
     text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
-.contact-intro {
-    font-size: 1.1rem;
+.levelup-icon {
+    font-size: 5rem;
+    margin-bottom: var(--spacing-sm);
+    animation: spin 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+}
+
+.levelup-title {
+    font-size: 3rem;
+    font-weight: 900;
+    background: var(--gradient-super-saiyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-md);
+}
+
+.levelup-animation {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.levelup-ring,
+.levelup-ring-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 4px solid transparent;
+    animation: rotate 8s linear infinite;
+}
+
+.levelup-ring {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--color-saiyan-gold);
+    box-shadow: 0 0 30px var(--color-saiyan-gold);
+}
+
+.levelup-ring-2 {
+    width: 80%;
+    height: 80%;
+    border-bottom-color: var(--color-ki-blue);
+    animation-direction: reverse;
+}
+
+.levelup-avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    filter: drop-shadow(0 0 30px var(--color-saiyan-gold));
+}
+
+.levelup-text {
+    font-size: 1.3rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.levelup-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.levelup-stat {
+    background: var(--glass-bg);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-saiyan-gold);
+}
+
+.levelup-stat .stat-label {
+    display: block;
+    font-size: 0.8rem;
     color: var(--color-text-muted);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.levelup-stat .stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--color-saiyan-gold);
+}
+
+.btn-continue {
+    background: var(--gradient-goku);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+}
+
+.btn-continue:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-super-saiyan);
+}
+
+/* ============================================
+   Victory Screen
+   ============================================ */
+.victory-content {
+    text-align: center;
+}
+
+.victory-icon {
+    font-size: 6rem;
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(0 0 30px var(--color-saiyan-gold));
+}
+
+.victory-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: var(--gradient-super-saiyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+}
+
+.victory-title .highlight {
+    background: var(--gradient-goku);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.victory-text {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
     margin-bottom: var(--spacing-lg);
     line-height: 1.8;
 }
 
-.contact-links {
+.final-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.final-stat {
+    background: var(--glass-bg);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-saiyan-gold);
+}
+
+.final-stat .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.final-stat .stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-saiyan-gold);
+}
+
+.victory-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.btn-victory {
+    background: var(--gradient-goku);
+    color: white;
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-victory:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-super-saiyan);
+}
+
+.btn-victory.secondary {
+    background: transparent;
+    border: 2px solid var(--color-goku-orange);
+}
+
+.btn-victory.secondary:hover {
+    background: var(--color-goku-orange);
+}
+
+/* ============================================
+   Navigation
+   ============================================ */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: 3px solid var(--color-goku-orange);
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    text-decoration: none;
+}
+
+.logo-text {
+    font-size: 2rem;
+    font-weight: 900;
+    background: var(--gradient-super-saiyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-info {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.nav-chapter {
+    color: var(--color-goku-orange);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-power {
+    color: var(--color-ki-blue);
+    font-weight: 700;
+}
+
+/* ============================================
+   Overlay
+   ============================================ */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    background: var(--color-bg-nebula);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    border: 3px solid var(--color-goku-orange);
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+}
+
+.btn-close {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-content h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    background: var(--gradient-super-saiyan);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.contact-methods {
+    display: grid;
+    gap: var(--spacing-sm);
 }
 
 .contact-card {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: var(--spacing-sm);
     padding: var(--spacing-md);
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
+    background: var(--color-bg-space);
     border-radius: var(--radius-lg);
-    border: 2px solid var(--glass-border);
-    box-shadow: var(--shadow-md);
+    border: 2px solid var(--color-goku-orange);
     text-decoration: none;
     transition: var(--transition-base);
-    position: relative;
-}
-
-.contact-card::before {
-    content: '📡';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
-    opacity: 0;
-    transition: var(--transition-base);
-}
-
-.contact-card:hover::before {
-    opacity: 1;
-    top: -10px;
 }
 
 .contact-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-goku-orange);
-    box-shadow: var(--shadow-lg);
+    transform: translateX(10px);
+    box-shadow: var(--shadow-super-saiyan);
 }
 
 .contact-icon {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-xs);
-    filter: drop-shadow(0 0 15px var(--color-goku-orange));
+    font-size: 2.5rem;
 }
 
 .contact-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--color-text-muted);
-    margin-bottom: var(--spacing-xs);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
 }
 
 .contact-value {
@@ -1460,687 +1110,79 @@ body::before {
 }
 
 /* ============================================
-   Footer - Capsule Corp Style
+   Responsive
    ============================================ */
-.footer {
-    padding: var(--spacing-md) 0;
-    text-align: center;
-    background: var(--color-bg-space);
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    border-top: 3px solid var(--color-goku-orange);
-    position: relative;
-}
-
-.footer::before {
-    content: 'Z';
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 4rem;
-    opacity: 0.1;
-    font-weight: 900;
-    color: var(--color-goku-orange);
-}
-
-/* ============================================
-   Responsive Design - Mobile First Improvements
-   ============================================ */
-
-/* Tablet & Below */
-@media (max-width: 968px) {
-    .hero-content {
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2rem;
+    }
+    
+    .logo-dragon {
+        font-size: 3rem;
+    }
+    
+    .character-preview {
+        flex-direction: column;
+    }
+    
+    .story-stats {
         grid-template-columns: 1fr;
-        text-align: center;
+    }
+    
+    .battle-scene {
+        flex-direction: column;
         gap: var(--spacing-md);
     }
     
-    .hero-text {
-        order: 2;
-    }
-    
-    .hero-visual {
-        order: 1;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .avatar-container {
-        width: 220px;
-        height: 220px;
-    }
-    
-    .name {
-        font-size: 2.8rem;
-        line-height: 1.2;
-    }
-    
-    .title-wrapper {
-        justify-content: center;
-        gap: var(--spacing-xs);
-    }
-    
-    .hero-description {
-        max-width: 100%;
-        font-size: 1rem;
-    }
-    
-    .hero-buttons {
-        justify-content: center;
-    }
-    
-    .about-content {
+    .battle-actions {
         grid-template-columns: 1fr;
     }
     
-    .about-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-sm);
-    }
-    
-    .section-title::after {
-        right: 50%;
-        transform: translateX(50%);
-        top: -30px;
-    }
-    
-    .code-window {
-        max-width: 100%;
-    }
-}
-
-/* Mobile - 768px and below */
-@media (max-width: 768px) {
-    /* Reduce background animations for performance */
-    .star {
-        opacity: 0.3;
-    }
-    
-    .dragon-ball {
-        opacity: 0.5;
-    }
-    
-    .ki-orb {
-        opacity: 0.08;
-    }
-    
-    .speed-line {
-        opacity: 0.2;
-    }
-    
-    body::before,
-    .section-title::before,
-    .experience::before,
-    .skills::before {
-        font-size: 40vh;
-        opacity: 0.02;
-    }
-    
-    /* Navigation */
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        background: var(--color-bg-space);
+    .levelup-stats {
         flex-direction: column;
-        padding: var(--spacing-xl) var(--spacing-md);
-        box-shadow: var(--shadow-xl);
-        transition: var(--transition-base);
-        border-left: 3px solid var(--color-goku-orange);
-        z-index: 999;
-    }
-    
-    .nav-menu.active {
-        right: 0;
-    }
-    
-    .nav-toggle {
-        display: flex;
-        z-index: 1001;
-        background: var(--color-bg-space);
-        padding: var(--spacing-xs);
-        border-radius: var(--radius-sm);
-    }
-    
-    .nav-link {
-        font-size: 1.1rem;
-        padding: var(--spacing-sm) 0;
-    }
-    
-    /* Hero Section */
-    .hero {
-        padding: var(--spacing-lg) var(--spacing-sm);
-        min-height: auto;
-        padding-top: 100px;
-        padding-bottom: var(--spacing-xl);
-    }
-    
-    .avatar-container {
-        width: 180px;
-        height: 180px;
-    }
-    
-    .avatar-icon {
-        font-size: 2.5rem;
-    }
-    
-    .greeting {
-        font-size: 1rem;
-    }
-    
-    .name {
-        font-size: 2.2rem;
-        letter-spacing: 1px;
-    }
-    
-    .title-item {
-        font-size: 0.85rem;
-    }
-    
-    .hero-description {
-        font-size: 0.95rem;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .hero-buttons {
-        gap: var(--spacing-xs);
-    }
-    
-    .btn {
-        padding: var(--spacing-sm);
-        font-size: 0.9rem;
-    }
-    
-    .scroll-indicator {
-        bottom: var(--spacing-sm);
-        font-size: 0.75rem;
-    }
-    
-    /* Section Titles */
-    .section-title {
-        font-size: 1.8rem;
-        margin-bottom: var(--spacing-lg);
-        letter-spacing: 1px;
-    }
-    
-    .section-title::after {
-        font-size: 1.5rem;
-        top: -25px;
-    }
-    
-    /* About Section */
-    .about {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .about-intro {
-        font-size: 1rem;
-    }
-    
-    .about-text p {
-        font-size: 0.95rem;
-    }
-    
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-sm);
-        margin-top: var(--spacing-sm);
-    }
-    
-    .stat-item {
-        padding: var(--spacing-sm);
-    }
-    
-    .stat-number {
-        font-size: 1.8rem;
-    }
-    
-    .stat-label {
-        font-size: 0.75rem;
-    }
-    
-    .code-window {
-        margin-top: var(--spacing-md);
-    }
-    
-    .window-content pre {
-        font-size: 0.75rem;
-    }
-    
-    /* Timeline - Experience */
-    .experience {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .timeline::before {
-        left: 5px;
-    }
-    
-    .timeline-item {
-        padding-left: var(--spacing-md);
-        padding-bottom: var(--spacing-md);
-    }
-    
-    .timeline-marker {
-        left: -4px;
-        width: 18px;
-        height: 18px;
-    }
-    
-    .timeline-content {
-        padding: var(--spacing-sm);
-    }
-    
-    .timeline-title {
-        font-size: 1.1rem;
-    }
-    
-    .timeline-company {
-        font-size: 0.75rem;
-        padding: var(--spacing-xs) var(--spacing-sm);
-    }
-    
-    .timeline-date,
-    .timeline-location {
-        font-size: 0.8rem;
-    }
-    
-    .timeline-description {
-        font-size: 0.85rem;
-    }
-    
-    /* Skills */
-    .skills {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .skills-grid {
-        grid-template-columns: 1fr;
         gap: var(--spacing-sm);
     }
     
-    .skill-category {
-        padding: var(--spacing-sm);
-    }
-    
-    .skill-icon {
-        font-size: 2rem;
-    }
-    
-    .skill-category h3 {
-        font-size: 1.1rem;
-    }
-    
-    .skill-tag {
-        font-size: 0.75rem;
-        padding: var(--spacing-xs);
-    }
-    
-    /* Projects */
-    .projects {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-sm);
-    }
-    
-    .project-card {
-        padding: var(--spacing-sm);
-    }
-    
-    .project-icon {
-        font-size: 2.5rem;
-    }
-    
-    .project-card h3 {
-        font-size: 1.1rem;
-    }
-    
-    .project-card p {
-        font-size: 0.85rem;
-    }
-    
-    .project-tech span {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-    }
-    
-    /* Contact */
-    .contact {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .contact-intro {
-        font-size: 0.95rem;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .contact-links {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-sm);
-    }
-    
-    .contact-card {
-        padding: var(--spacing-sm);
-        flex-direction: row;
-        justify-content: center;
-        gap: var(--spacing-sm);
-    }
-    
-    .contact-icon {
-        font-size: 2rem;
-        margin-bottom: 0;
-    }
-    
-    .contact-label {
-        font-size: 0.7rem;
-    }
-    
-    .contact-value {
-        font-size: 0.9rem;
-    }
-    
-    /* Footer */
-    .footer {
-        font-size: 0.8rem;
-        padding: var(--spacing-sm) 0;
-    }
-    
-    .footer::before {
-        font-size: 2rem;
-        top: -20px;
-    }
-}
-
-/* Small Mobile - 480px and below */
-@media (max-width: 480px) {
-    /* Further reduce animations */
-    .bg-animation {
-        display: none;
-    }
-    
-    body::before {
-        display: none;
-    }
-    
-    /* Hero */
-    .hero {
-        padding-top: 80px;
-    }
-    
-    .avatar-container {
-        width: 140px;
-        height: 140px;
-    }
-    
-    .aura-ring,
-    .aura-ring-2,
-    .aura-ring-3 {
-        border-width: 2px;
-    }
-    
-    .avatar-icon {
-        font-size: 2rem;
-    }
-    
-    .greeting {
-        font-size: 0.9rem;
-    }
-    
-    .name {
-        font-size: 1.8rem;
-    }
-    
-    .title-wrapper {
-        flex-direction: column;
-        gap: 4px;
-        margin-bottom: var(--spacing-sm);
-    }
-    
-    .title-separator {
-        display: none;
-    }
-    
-    .title-item {
-        font-size: 0.8rem;
-    }
-    
-    .hero-description {
-        font-size: 0.9rem;
-        line-height: 1.6;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .btn {
-        width: 100%;
-        justify-content: center;
-        padding: var(--spacing-sm);
-        font-size: 0.85rem;
-    }
-    
-    .scroll-indicator {
-        display: none;
-    }
-    
-    /* Container */
-    .container {
-        padding: 0 var(--spacing-sm);
-    }
-    
-    /* Section Titles */
-    .section-title {
-        font-size: 1.5rem;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .section-title::after {
-        display: none;
-    }
-    
-    /* About Stats */
-    .about-stats {
+    .final-stats {
         grid-template-columns: 1fr;
     }
     
-    .stat-number {
-        font-size: 1.5rem;
+    .power-level-display {
+        top: 10px;
+        right: 10px;
+        min-width: 120px;
     }
     
-    .stat-label {
-        font-size: 0.7rem;
-    }
-    
-    /* Code Window */
-    .window-content pre {
-        font-size: 0.65rem;
-        overflow-x: auto;
-    }
-    
-    .window-dots {
-        gap: 4px;
-    }
-    
-    .dot {
-        width: 8px;
-        height: 8px;
-    }
-    
-    /* Timeline */
-    .timeline-item {
-        padding-left: var(--spacing-sm);
-    }
-    
-    .timeline-marker {
-        left: -2px;
-        width: 14px;
-        height: 14px;
-    }
-    
-    .timeline-content::before {
-        display: none;
-    }
-    
-    .timeline-title {
-        font-size: 1rem;
-    }
-    
-    .timeline-company {
-        font-size: 0.7rem;
-    }
-    
-    .timeline-date,
-    .timeline-location {
-        font-size: 0.75rem;
-        display: block;
-        margin-bottom: 4px;
-    }
-    
-    .timeline-description {
-        font-size: 0.8rem;
-        line-height: 1.5;
-    }
-    
-    /* Skills */
-    .skill-category {
-        padding: var(--spacing-xs);
-    }
-    
-    .skill-icon {
-        font-size: 1.5rem;
-        margin-bottom: var(--spacing-xs);
-    }
-    
-    .skill-category h3 {
-        font-size: 1rem;
-        margin-bottom: var(--spacing-xs);
-    }
-    
-    .skill-tags {
-        gap: 4px;
-    }
-    
-    .skill-tag {
-        font-size: 0.7rem;
-        padding: 4px 6px;
-    }
-    
-    /* Projects */
-    .project-card {
-        padding: var(--spacing-xs);
-    }
-    
-    .project-icon {
-        font-size: 2rem;
-        margin-bottom: var(--spacing-xs);
-    }
-    
-    .project-card h3 {
-        font-size: 1rem;
-        margin-bottom: var(--spacing-xs);
-    }
-    
-    .project-card p {
-        font-size: 0.8rem;
-        margin-bottom: var(--spacing-xs);
-    }
-    
-    .project-tech {
-        gap: 4px;
-        margin-bottom: var(--spacing-xs);
-    }
-    
-    .project-tech span {
-        font-size: 0.65rem;
-        padding: 3px 6px;
-    }
-    
-    .project-link {
-        font-size: 0.8rem;
-    }
-    
-    /* Contact */
-    .contact-intro {
-        font-size: 0.9rem;
-    }
-    
-    .contact-card {
-        padding: var(--spacing-xs);
-        gap: var(--spacing-xs);
-    }
-    
-    .contact-icon {
-        font-size: 1.5rem;
-    }
-    
-    .contact-label {
-        font-size: 0.65rem;
-    }
-    
-    .contact-value {
-        font-size: 0.8rem;
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    
-    /* Footer */
-    .footer {
-        font-size: 0.7rem;
-        padding: var(--spacing-xs) 0;
-    }
-    
-    .footer::before {
-        display: none;
-    }
-}
-
-/* Ultra Small - 360px and below */
-@media (max-width: 360px) {
-    .name {
-        font-size: 1.5rem;
-    }
-    
-    .avatar-container {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .avatar-icon {
-        font-size: 1.5rem;
-    }
-    
-    .hero-description {
-        font-size: 0.85rem;
-    }
-    
-    .section-title {
+    .power-value {
         font-size: 1.3rem;
     }
     
-    .nav-menu {
-        width: 85%;
+    .energy-bar-container {
+        top: 10px;
+        left: 10px;
+        min-width: 150px;
     }
 }
 
-/* ============================================
-   Reduced Motion
-   ============================================ */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+@media (max-width: 480px) {
+    .chapter-title {
+        font-size: 1.8rem;
+    }
+    
+    .scene-icon {
+        font-size: 4rem;
+    }
+    
+    .narration {
+        font-size: 1rem;
+    }
+    
+    .fighter-avatar {
+        font-size: 3rem;
+    }
+    
+    .vs-text {
+        font-size: 1.5rem;
+        padding: var(--spacing-xs);
     }
 }
