@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheven Somlal | Software Engineer & Z Fighter</title>
+    <title>Cheven Somlal | The Legend of the Code Warrior</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Animated Background - DBZ Space Theme -->
+    <!-- Animated Background -->
     <div class="bg-animation">
         <div class="stars-field">
             <div class="star star-1"></div>
@@ -25,422 +25,253 @@
         <div class="dragon-ball dragon-ball-1"></div>
         <div class="dragon-ball dragon-ball-2"></div>
         <div class="dragon-ball dragon-ball-3"></div>
-        <div class="dragon-ball dragon-ball-4"></div>
-        <div class="dragon-ball dragon-ball-5"></div>
         <div class="ki-orb ki-orb-1"></div>
         <div class="ki-orb ki-orb-2"></div>
-        <div class="ki-orb ki-orb-3"></div>
-        <div class="speed-lines">
-            <div class="speed-line speed-line-1"></div>
-            <div class="speed-line speed-line-2"></div>
-            <div class="speed-line speed-line-3"></div>
-            <div class="speed-line speed-line-4"></div>
-            <div class="speed-line speed-line-5"></div>
-        </div>
         <div class="saiyan-aura"></div>
-        <div class="gradient-overlay"></div>
     </div>
 
-    <!-- Navigation - Capsule Corp Style -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <span class="logo-text">CS</span>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="#about" class="nav-link">Profile</a></li>
-                <li><a href="#experience" class="nav-link">Battles</a></li>
-                <li><a href="#skills" class="nav-link">Techniques</a></li>
-                <li><a href="#projects" class="nav-link">Missions</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="nav-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Power Level Display -->
+    <div class="power-level-display">
+        <div class="power-label">POWER LEVEL</div>
+        <div class="power-value" id="powerLevel">9000</div>
+        <div class="rank-badge" id="rankBadge">Academy Trainee</div>
+    </div>
+
+    <!-- Health/Energy Bar -->
+    <div class="energy-bar-container">
+        <div class="energy-bar">
+            <div class="energy-fill" id="energyFill"></div>
+        </div>
+        <div class="energy-text">KI ENERGY</div>
+    </div>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="startScreen">
+        <div class="screen-content">
+            <div class="logo-container">
+                <div class="logo-dragon">🐉</div>
+                <h1 class="game-title">THE LEGEND OF THE<br/><span class="highlight">CODE WARRIOR</span></h1>
+                <p class="subtitle">A Dragon Ball Z Inspired Journey</p>
+            </div>
+            
+            <div class="intro-text">
+                <p>In a world where bugs lurk in every corner and deadlines threaten peace...</p>
+                <p>One developer rose to become a legendary warrior of clean code.</p>
+                <p class="dramatic">This is the story of Cheven Somlal...</p>
+            </div>
+
+            <div class="character-preview">
+                <div class="preview-avatar">
+                    <div class="aura-ring"></div>
+                    <div class="aura-ring-2"></div>
+                    <div class="avatar-icon">🥋</div>
+                </div>
+                <div class="preview-stats">
+                    <div class="stat-row">
+                        <span class="stat-name">Class:</span>
+                        <span class="stat-value">Full Stack Z Fighter</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Base:</span>
+                        <span class="stat-value">Cape Town, Earth</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Specialty:</span>
+                        <span class="stat-value">JavaScript & Spring Jutsu</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-start" onclick="game.startAdventure()">
+                <span class="btn-text">BEGIN ADVENTURE</span>
+                <span class="btn-icon">⚡</span>
             </button>
+        </div>
+    </div>
+
+    <!-- Story Screen -->
+    <div class="screen" id="storyScreen">
+        <div class="story-container">
+            <div class="chapter-header">
+                <span class="chapter-number" id="chapterNumber">Chapter 1</span>
+                <span class="chapter-title" id="chapterTitle">The Beginning</span>
+            </div>
+
+            <div class="story-content">
+                <div class="story-image" id="storyImage">
+                    <div class="scene-icon">🎓</div>
+                </div>
+
+                <div class="story-text">
+                    <p class="narration" id="storyNarration">
+                        Our hero begins their journey at the prestigious Academy...
+                    </p>
+                </div>
+
+                <div class="story-stats" id="storyStats">
+                    <!-- Dynamic stats will appear here -->
+                </div>
+            </div>
+
+            <div class="story-actions">
+                <button class="btn-action" id="actionButton" onclick="game.nextStep()">
+                    <span class="btn-text">CONTINUE</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+
+            <!-- Battle Arena (hidden by default) -->
+            <div class="battle-arena" id="battleArena">
+                <div class="battle-scene">
+                    <div class="fighter player-fighter">
+                        <div class="fighter-avatar">🥋</div>
+                        <div class="fighter-name">YOU</div>
+                        <div class="fighter-health">
+                            <div class="health-bar">
+                                <div class="health-fill" id="playerHealth"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vs-text">VS</div>
+
+                    <div class="fighter enemy-fighter">
+                        <div class="fighter-avatar" id="enemyAvatar">👾</div>
+                        <div class="fighter-name" id="enemyName">Bug Monster</div>
+                        <div class="fighter-health">
+                            <div class="health-bar">
+                                <div class="health-fill" id="enemyHealth"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="battle-actions">
+                    <button class="btn-battle" onclick="game.battleAttack('code')">
+                        <span>💻 Code Strike</span>
+                    </button>
+                    <button class="btn-battle" onclick="game.battleAttack('debug')">
+                        <span>🔍 Debug Beam</span>
+                    </button>
+                    <button class="btn-battle" onclick="game.battleAttack('special')">
+                        <span>⚡ Special Move</span>
+                    </button>
+                </div>
+
+                <div class="battle-log" id="battleLog">
+                    <p class="log-entry">Battle started!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Level Up Screen -->
+    <div class="screen" id="levelUpScreen">
+        <div class="levelup-content">
+            <div class="levelup-icon">✨</div>
+            <h2 class="levelup-title">POWER UP!</h2>
+            <div class="levelup-animation">
+                <div class="aura-ring levelup-ring"></div>
+                <div class="aura-ring-2 levelup-ring-2"></div>
+                <div class="levelup-avatar">🥋</div>
+            </div>
+            <p class="levelup-text" id="levelUpText">You've grown stronger!</p>
+            <div class="levelup-stats">
+                <div class="levelup-stat">
+                    <span class="stat-label">New Rank:</span>
+                    <span class="stat-value" id="newRank">Junior Developer</span>
+                </div>
+                <div class="levelup-stat">
+                    <span class="stat-label">Power Level:</span>
+                    <span class="stat-value" id="newPowerLevel">15000</span>
+                </div>
+            </div>
+            <button class="btn-continue" onclick="game.continueAdventure()">
+                CONTINUE JOURNEY
+            </button>
+        </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div class="screen" id="victoryScreen">
+        <div class="victory-content">
+            <div class="victory-icon">🏆</div>
+            <h2 class="victory-title">LEGENDARY SUPER SAIYAN<br/><span class="highlight">ACHIEVED!</span></h2>
+            <p class="victory-text">
+                You've witnessed the complete journey of Cheven Somlal -<br/>
+                from Academy Trainee to Software Engineer III!
+            </p>
+            
+            <div class="final-stats">
+                <div class="final-stat">
+                    <span class="stat-label">Final Power Level</span>
+                    <span class="stat-value" id="finalPowerLevel">50000+</span>
+                </div>
+                <div class="final-stat">
+                    <span class="stat-label">Battles Won</span>
+                    <span class="stat-value" id="battlesWon">8</span>
+                </div>
+                <div class="final-stat">
+                    <span class="stat-label">Years of Experience</span>
+                    <span class="stat-value">5+</span>
+                </div>
+                <div class="final-stat">
+                    <span class="stat-label">Companies Conquered</span>
+                    <span class="stat-value">8</span>
+                </div>
+            </div>
+
+            <div class="victory-actions">
+                <a href="mailto:chevensomlal@gmail.com" class="btn-victory">
+                    <span>📧 Contact Hero</span>
+                </a>
+                <a href="https://www.linkedin.com/in/chevensomlal/" class="btn-victory secondary" target="_blank">
+                    <span>💼 View Battle Log</span>
+                </a>
+                <button class="btn-victory secondary" onclick="game.restart()">
+                    <span>🔄 Replay Story</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation (visible during story) -->
+    <nav class="navbar" id="navbar" style="display: none;">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="game.showHome()">
+                <span class="logo-text">Z</span>
+            </a>
+            <div class="nav-info">
+                <span class="nav-chapter" id="navChapter">Chapter 1</span>
+                <span class="nav-power" id="navPower">PL: 9000</span>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="greeting">⚡ Power Level: Over 9000! I'm</p>
-                <h1 class="name">
-                    <span class="name-line">Cheven</span>
-                    <span class="name-line">Somlal</span>
-                </h1>
-                <div class="title-wrapper">
-                    <span class="title-item">Software Engineer</span>
-                    <span class="title-separator">•</span>
-                    <span class="title-item">Full Stack Z Fighter</span>
-                    <span class="title-separator">•</span>
-                    <span class="title-item">Capsule Corp Developer</span>
-                </div>
-                <p class="hero-description">
-                    Building legendary solutions with the power of code and determination.
-                    Currently defending Earth at <strong>Capitec Bank</strong>.
-                    My Saiyan pride is to never give up on clean architecture!
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Summon Me 📡</a>
-                    <a href="https://www.linkedin.com/in/chevensomlal/" class="btn btn-secondary" target="_blank" rel="noopener">
-                        View Battle Log
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="avatar-container">
-                    <div class="aura-ring"></div>
-                    <div class="aura-ring-2"></div>
-                    <div class="aura-ring-3"></div>
-                    <div class="avatar-placeholder">
-                        <span class="avatar-icon">🐉</span>
-                    </div>
-                </div>
+    <!-- Contact Overlay -->
+    <div class="overlay" id="contactOverlay">
+        <div class="overlay-content">
+            <button class="btn-close" onclick="game.closeOverlay()">×</button>
+            <h2>Summon the Hero</h2>
+            <div class="contact-methods">
+                <a href="mailto:chevensomlal@gmail.com" class="contact-card">
+                    <span class="contact-icon">📧</span>
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">chevensomlal@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/chevensomlal/" class="contact-card" target="_blank">
+                    <span class="contact-icon">💼</span>
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">View Profile</span>
+                </a>
+                <a href="https://github.com/ChevenSomlal" class="contact-card" target="_blank">
+                    <span class="contact-icon">🐙</span>
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-value">ChevenSomlal</span>
+                </a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <span>Power Up</span>
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <h2 class="section-title">Fighter Profile</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-intro">
-                        I'm a passionate Software Engineer with over 5 years of experience crafting
-                        legendary solutions and transforming complex problems into elegant code.
-                    </p>
-                    <p>
-                        Currently working as a <strong>Software Engineer III at Capitec Bank</strong>,
-                        I specialize in full-stack development with expertise in JavaScript, Spring Framework,
-                        and Apache Kafka. My journey has taken me through epic battles at companies like
-                        Entelect, TransUnion, and De Beers.
-                    </p>
-                    <p>
-                        When I'm not coding, you'll find me watching DBZ episodes, training my coding techniques,
-                        or contributing to open-source scrolls. I believe in writing clean, maintainable code
-                        that stands the test of time - that's my Saiyan pride!
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">8</span>
-                            <span class="stat-label">Companies Conquered</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">∞</span>
-                            <span class="stat-label">Power Level</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="code-window">
-                        <div class="window-header">
-                            <span class="window-dots">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                            </span>
-                            <span class="window-title">SCOUTER</span>
-                        </div>
-                        <div class="window-content">
-                            <pre><code><span class="keyword">public class</span> <span class="class-name">Cheven</span> {
-    <span class="keyword">private</span> String rank = <span class="string">"Super Saiyan"</span>;
-    <span class="keyword">private</span> String planet = <span class="string">"Earth"</span>;
-    <span class="keyword">private</span> List&lt;String&gt; saiyanPride = Arrays.asList(
-        <span class="string">"Clean Code"</span>,
-        <span class="string">"DBZ"</span>,
-        <span class="string">"Never Surrender"</span>
-    );
-
-    <span class="keyword">public void</span> goSuperSaiyan() {
-        <span class="comment">// Building the future, one technique at a time</span>
-        <span class="comment">// It's over 9000! 🐉</span>
-    }
-}</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="experience" id="experience">
-        <div class="container">
-            <h2 class="section-title">Battle History</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Software Engineer III: Full Stack</h3>
-                            <span class="timeline-company">Capitec Bank</span>
-                        </div>
-                        <span class="timeline-date">January 2025 - Present</span>
-                        <span class="timeline-location">Cape Town, Western Cape</span>
-                        <p class="timeline-description">
-                            Leading full-stack development missions, building scalable solutions
-                            for banking systems. Defending Earth's digital infrastructure!
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Senior Software Engineer</h3>
-                            <span class="timeline-company">Entelect</span>
-                        </div>
-                        <span class="timeline-date">January 2020 - January 2025</span>
-                        <span class="timeline-location">Johannesburg Area</span>
-                        <p class="timeline-description">
-                            5+ years across multiple client battles including Capitec, Assupol,
-                            TransUnion, and De Beers. Achieved Super Saiyan rank through dedication!
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Software Engineer (Assupol)</h3>
-                            <span class="timeline-company">Entelect</span>
-                        </div>
-                        <span class="timeline-date">June 2023 - December 2023</span>
-                        <p class="timeline-description">
-                            Migration of critical functionalities from .NET Framework monolithic
-                            architecture to standalone .NET 6 application with front-end enhancements.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Software Engineer (TransUnion)</h3>
-                            <span class="timeline-company">Entelect</span>
-                        </div>
-                        <span class="timeline-date">February 2022 - June 2023</span>
-                        <p class="timeline-description">
-                            Rewrote legacy Delphi system using modern techniques, migrating from
-                            on-premises to cloud with business process enhancements.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Software Engineer (De Beers)</h3>
-                            <span class="timeline-company">Entelect</span>
-                        </div>
-                        <span class="timeline-date">January 2020 - February 2022</span>
-                        <p class="timeline-description">
-                            Developed customer-facing portal and internal sales planning system for
-                            diamond industry, including order management and reporting scrolls.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3 class="timeline-title">Academy Trainee (Intern)</h3>
-                            <span class="timeline-company">Allan Gray</span>
-                        </div>
-                        <span class="timeline-date">June 2019 - July 2019</span>
-                        <span class="timeline-location">Cape Town Area</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-        <div class="container">
-            <h2 class="section-title">Attack Techniques</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <div class="skill-icon">🎯</div>
-                    <h3>Programming Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">SQL</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="skill-icon">⚡</div>
-                    <h3>Special Moves</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Spring Framework</span>
-                        <span class="skill-tag">Spring Boot</span>
-                        <span class="skill-tag">.NET 6</span>
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Node.js</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="skill-icon">🔄</div>
-                    <h3>Instant Transmission</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Apache Kafka</span>
-                        <span class="skill-tag">RabbitMQ</span>
-                        <span class="skill-tag">Redis</span>
-                        <span class="skill-tag">Elasticsearch</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="skill-icon">☁️</div>
-                    <h3>Flying Technique</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Azure</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Kubernetes</span>
-                        <span class="skill-tag">CI/CD</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="skill-icon">🗄️</div>
-                    <h3>Hyperbolic Storage</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PostgreSQL</span>
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">Oracle</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <div class="skill-icon">🌍</div>
-                    <h3>Universal Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">English (Native)</span>
-                        <span class="skill-tag">Afrikaans (Professional)</span>
-                        <span class="skill-tag">isiZulu (Limited)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2 class="section-title">Mission Archive</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">🌤️</div>
-                    <h3>Weather Forecast Technique</h3>
-                    <p>Real-time weather application with today and tomorrow forecasts. Built with modern CSS and Open-Meteo API.</p>
-                    <div class="project-tech">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                    </div>
-                    <a href="https://chevensomlal.github.io/weather-forecast/" class="project-link" target="_blank" rel="noopener">View Mission →</a>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">💎</div>
-                    <h3>Diamond Trading System</h3>
-                    <p>Customer-facing portal and internal sales planning system for diamond industry with order management and reporting.</p>
-                    <div class="project-tech">
-                        <span>Java</span>
-                        <span>Spring</span>
-                        <span>React</span>
-                    </div>
-                    <span class="project-link">S-Rank Mission</span>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">🔄</div>
-                    <h3>.NET Transformation</h3>
-                    <p>Migration of monolithic .NET Framework application to .NET 6 with modern UI enhancements.</p>
-                    <div class="project-tech">
-                        <span>.NET 6</span>
-                        <span>C#</span>
-                        <span>Azure</span>
-                    </div>
-                    <span class="project-link">A-Rank Mission</span>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">☁️</div>
-                    <h3>Cloud Migration Technique</h3>
-                    <p>Rewrite of legacy Delphi system with cloud migration and business process improvements.</p>
-                    <div class="project-tech">
-                        <span>Java</span>
-                        <span>AWS</span>
-                        <span>Kafka</span>
-                    </div>
-                    <span class="project-link">A-Rank Mission</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Contact Z Fighter</h2>
-            <div class="contact-content">
-                <p class="contact-intro">
-                    I'm always open to discussing new missions, interesting projects,
-                    or just chatting about DBZ and technology! Send a scoutersignal my way!
-                </p>
-                <div class="contact-links">
-                    <a href="mailto:chevensomlal@gmail.com" class="contact-card">
-                        <span class="contact-icon">📧</span>
-                        <span class="contact-label">Scouter Signal</span>
-                        <span class="contact-value">chevensomlal@gmail.com</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/chevensomlal/" class="contact-card" target="_blank" rel="noopener">
-                        <span class="contact-icon">💼</span>
-                        <span class="contact-label">Battle Log</span>
-                        <span class="contact-value">View Profile</span>
-                    </a>
-                    <a href="https://github.com/ChevenSomlal" class="contact-card" target="_blank" rel="noopener">
-                        <span class="contact-icon">🐙</span>
-                        <span class="contact-label">Code Scrolls</span>
-                        <span class="contact-value">ChevenSomlal</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 Cheven Somlal. Crafted with ☕, 🐉, and Saiyan Pride 🔥</p>
-            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">It's over 9000!</p>
-        </div>
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
