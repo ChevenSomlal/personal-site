@@ -200,9 +200,13 @@ const game = {
     
     // Fighting Game System
     startFight() {
-        document.getElementById('fightingArena').style.display = 'block';
-        document.getElementById('actionButton').style.display = 'none';
-        document.getElementById('storyContent').style.display = 'none';
+        const arena = document.getElementById('fightingArena');
+        const actionBtn = document.getElementById('actionButton');
+        const storyContent = document.getElementById('storyContent');
+        
+        if (arena) arena.style.display = 'block';
+        if (actionBtn) actionBtn.style.display = 'none';
+        if (storyContent) storyContent.style.display = 'none';
         
         const chapter = this.chapters[this.currentChapter];
         this.fightGame = new FightingGame(chapter, () => this.onFightVictory(), () => this.onFightDefeat());
@@ -243,9 +247,14 @@ const game = {
     
     continueAdventure() {
         this.switchScreen('story');
-        document.getElementById('fightingArena').style.display = 'none';
-        document.getElementById('actionButton').style.display = 'inline-flex';
-        document.getElementById('storyContent') && (document.getElementById('storyContent').style.display = 'block');
+        const arena = document.getElementById('fightingArena');
+        const actionBtn = document.getElementById('actionButton');
+        const storyContent = document.getElementById('storyContent');
+        
+        if (arena) arena.style.display = 'none';
+        if (actionBtn) actionBtn.style.display = 'inline-flex';
+        if (storyContent) storyContent.style.display = 'block';
+        
         this.loadChapter(this.currentChapter + 1);
     },
     
@@ -305,6 +314,10 @@ const game = {
 class FightingGame {
     constructor(chapter, onVictory, onDefeat) {
         this.canvas = document.getElementById('fightCanvas');
+        if (!this.canvas) {
+            console.error('Fight canvas not found!');
+            return;
+        }
         this.ctx = this.canvas.getContext('2d');
         this.chapter = chapter;
         this.onVictory = onVictory;
@@ -314,6 +327,8 @@ class FightingGame {
         this.active = true;
         this.timeLeft = 60;
         this.lastTime = 0;
+        
+        console.log('FightingGame initialized for chapter:', chapter.title);
         
         // Player
         this.player = {
@@ -382,19 +397,31 @@ class FightingGame {
     }
     
     init() {
+        console.log('FightingGame.init() called');
         this.updateHealthBars();
+        this.resizeCanvas();
         this.gameLoop(0);
         
         // Timer countdown
         this.timerInterval = setInterval(() => {
             if (!this.active) return;
             this.timeLeft--;
-            document.getElementById('timerDisplay').textContent = this.timeLeft;
+            const timerEl = document.getElementById('timerDisplay');
+            if (timerEl) timerEl.textContent = this.timeLeft;
             
             if (this.timeLeft <= 0) {
                 this.endGame('timeout');
             }
         }, 1000);
+    }
+    
+    resizeCanvas() {
+        const container = this.canvas.parentElement;
+        if (container) {
+            const rect = container.getBoundingClientRect();
+            this.canvas.width = rect.width;
+            this.canvas.height = 400;
+        }
     }
     
     handleKeyDown(e) {
